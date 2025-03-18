@@ -48,7 +48,7 @@ public class MainController {
 		
 		ArrayList<Menu> list = menuService.selectMenu();
 		
-		System.out.println(list);
+		//System.out.println(list);
 		
 		model.addAttribute("list",list);
 		
