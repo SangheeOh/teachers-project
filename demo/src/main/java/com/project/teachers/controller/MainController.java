@@ -1,8 +1,11 @@
 package com.project.teachers.controller;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +21,14 @@ public class MainController {
 	private MenuService menuService;
 	
 	@GetMapping("/")
-	 public String test() {
+	 public String first() {
 		 return "index"; 
 	 }
-
+	
+	@GetMapping("/insert.me")
+	 public String insert() {
+		 return "insert"; 
+	 }
 	
 	@PostMapping("/start.me")
 	public String insertMenu(@ModelAttribute Menu menu) {
@@ -32,6 +39,21 @@ public class MainController {
 		
 		menuService.insertMenu(menu);
 		
-		return "redirect:/";
+		//return "redirect:/";
+		return "success";
 	}
+	
+	@GetMapping("/select.me")
+	 public String selectMenu(Model model) {
+		
+		ArrayList<Menu> list = menuService.selectMenu();
+		
+		System.out.println(list);
+		
+		model.addAttribute("list",list);
+		
+		 return "select"; 
+	 }
+
+
 }

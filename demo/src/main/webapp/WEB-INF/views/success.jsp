@@ -9,11 +9,7 @@
 <body>
 
 
-<a href="insert.me">DB INSERT</a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<h1 style="color: blue;">성공적으로 INSERT 했습니다!</h1>
 
-
-<a href="select.me">SELECT 조회하기</a>
-	
 </body>
 </html>
