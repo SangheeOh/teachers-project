@@ -1,5 +1,7 @@
 package com.project.teachers.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class MenuService {
 	
 	public void insertMenu(Menu menu) {
 		menuMapper.insertMenu(menu);
+	}
+	
+	public ArrayList<Menu> selectMenu() {
+		return menuMapper.selectMenu();
 	}
 
 	

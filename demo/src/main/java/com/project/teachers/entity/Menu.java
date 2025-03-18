@@ -51,6 +51,13 @@ public class Menu {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+	    return "Menu{" +
+	            "memID='" + memID + '\'' +
+	            ", title='" + title + '\'' +
+	            '}';
+	}
 	
 	
 }
