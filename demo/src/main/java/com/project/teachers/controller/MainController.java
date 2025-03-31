@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.project.teachers.entity.Menu;
 import com.project.teachers.service.MenuService;
 
+
 @Controller
 public class MainController {
 
@@ -54,6 +55,7 @@ public class MainController {
 		
 		 return "select"; 
 	 }
+	
 
 
 }
