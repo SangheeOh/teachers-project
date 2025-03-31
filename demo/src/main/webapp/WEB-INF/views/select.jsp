@@ -33,13 +33,34 @@ table * {
 }
 
 table {
+
 	width: 100%;
+            max-width: 1200px; /* 최대 너비 설정 */
+            margin: 0 auto; /* 가운데 정렬 */
+            border-collapse: collapse;
 }
+
+        /* 테이블 셀 스타일 */
+        th, td {
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;  /* 글씨 크기 크게 */
+        }
+
+h2 {
+            text-align: center;           /* 가운데 정렬 */
+            font-size: 36px;              /* 글씨 크기 크게 */
+            color: blue;                  /* 글씨 색 파란색 */
+            font-weight: bold;            /* 글씨 굵게 */
+            text-decoration: underline;   /* 밑줄 */
+        }	
 </style>
 </head>
 <body>
 
-	        <h2>SELECT 결과</h2>
+<br><br>
+
+	        <h2>회원 조회</h2>
             <br>
             <c:if test="${not empty list }">
             <h1>성공했습니다!</h1>
@@ -48,15 +69,29 @@ table {
             <table id="selectlist" class="table table-hover" align="center">
                 <thead>
                     <tr>
-                        <th>아이디</th>
-                        <th>타이틀</th>
+                        <th>No.</th>
+                        <th>ID</th>
+                        <th>PWD</th>
+                        <th>NAME</th>
+                        <th>EMAIL</th>
+                        <th>PHONE</th>
+                        <th>CREATE_DATE</th>
+                        <th>STATUS</th>
+                        <th>ROLE</th>
                     </tr>
                 </thead>
                 <tbody>
-                   <c:forEach var="b" items="${list}">
+                   <c:forEach var="b" items="${box}">
                     <tr>
-                        <td>${b.memID }</td>
-                        <td>${b.title }</td>
+                        <td>${b.user_no }</td>
+                        <td>${b.id }</td>
+                        <td>${b.pwd }</td>
+                        <td>${b.name }</td>
+                        <td>${b.email }</td>
+                        <td>${b.phone }</td>
+                        <td>${b.createdate }</td>
+                        <td>${b.status }</td>
+                        <td>${b.role }</td>
                     </tr>
                    </c:forEach>
                    
