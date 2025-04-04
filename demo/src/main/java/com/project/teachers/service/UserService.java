@@ -22,6 +22,14 @@ public class UserService {
 
 	
 
+	//카네즈 2개//
+	public void insertUser(User user) {
+		userMapper.insertUser(user);
+	}
+	
+	public String findWriter(String id) {
+		return userMapper.findWriter(id);
+	}
 
 
 }

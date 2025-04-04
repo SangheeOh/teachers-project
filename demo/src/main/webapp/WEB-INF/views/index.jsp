@@ -23,5 +23,26 @@
 <br><br><br><br><br>
 
 
+
+
+<!-- 카네즈 사항 -->
+
+<!--헤더의 내용이 다 들어감-->
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+	<div id="container">
+		<div id="menuAdmin">
+			<h2 id="menuAdminH2">index</h2>
+			
+			<div id="menuList">
+			</div>
+		</div>
+	</div>
+	
+
+<!--푸터의 내용이 다 들어감-->	
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
+
 </body>
 </html>
