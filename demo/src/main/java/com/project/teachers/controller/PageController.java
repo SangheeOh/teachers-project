@@ -20,9 +20,15 @@ public class PageController {
 			return "index";
 		}
 		
+
 		// 로그인 페이지
 		@GetMapping("/loginPage")
-		public String loginPage() {
+		public String loginPage(HttpServletRequest request,org.springframework.ui.Model model) {
+			
+			// csrf 처리를 해줘야 정보가 넘어감
+			CsrfToken csrfToken = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
+			
+			model.addAttribute("_csrf", csrfToken);
 			return "login/index";
 		}
 		 

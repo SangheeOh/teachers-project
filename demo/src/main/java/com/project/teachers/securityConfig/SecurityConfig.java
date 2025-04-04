@@ -60,7 +60,7 @@ public class SecurityConfig {
 				// 로그인 실패했을 때
 				.failureUrl("/loginPage?error=true")
 				// 사용자 이름, 비밀번호 파라미터 
-				.usernameParameter("name")
+				.usernameParameter("id")
 				.passwordParameter("pwd")
 				// 로그인 성공 시 실행할 핸들러 
 				.successHandler(authenticationSuccessHandler())
@@ -98,12 +98,12 @@ public class SecurityConfig {
 					
 					// 운영진일 때 세션에 매니저 표시 
 					if(isManager) {
-						session.setAttribute("Member", true);
+						session.setAttribute("member", true);
 					}
 					
 					// 유저이름 저장 
-					session.setAttribute("name", authentication.getName());
-					session.setAttribute("isAuthenticatied", true);
+					session.setAttribute("id", authentication.getName());
+					session.setAttribute("isAuthenticated", true);
 					
 					// 로그인 성공 후 / 로 리다이렉트
 					response.sendRedirect(request.getContextPath()+"/");
