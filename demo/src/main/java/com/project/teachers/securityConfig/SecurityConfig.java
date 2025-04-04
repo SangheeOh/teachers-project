@@ -20,6 +20,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 
+import com.project.teachers.entity.CustomUser;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -104,6 +106,11 @@ public class SecurityConfig {
 					// 유저이름 저장 
 					session.setAttribute("id", authentication.getName());
 					session.setAttribute("isAuthenticated", true);
+					
+					// CustomUser로부터 name을 꺼내서 세션에 저장
+					CustomUser customUser = (CustomUser) authentication.getPrincipal();
+					String name = customUser.getUser().getName();
+					session.setAttribute("name", name);  // JSP에서 id 아닌 name으로 alert 띄우기 위해 세션에 name 저장
 					
 					// 로그인 성공 후 / 로 리다이렉트
 					response.sendRedirect(request.getContextPath()+"/");
