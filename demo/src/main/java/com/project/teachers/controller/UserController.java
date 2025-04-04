@@ -48,7 +48,7 @@ public class UserController {
 			String userPassword = user.getPwd();
 			System.out.println("!!!!!!!!!!userPassword: "+userPassword);
 			
-			//user.setRole(Role.MEMBER); //멤버로 지정 
+			user.setRole(Role.MEMBER.toString()); //멤버로 지정 
 			
 			String passwordEncoded = passwordEncoder.encode(userPassword); // 암호화
 			

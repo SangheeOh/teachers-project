@@ -20,12 +20,16 @@ public interface UserMapper {
 	//여기서부터 카네즈//////
 	// CRUD에 해당하는 기능(Read, Create, update, delete)
 	// create
-	@Insert("INSERT INTO teachers_db.user(id, pwd, name)"
-			+ " VALUES(#{id},#{pwd},#{name})")
+	
+	//@Insert("INSERT INTO teachers_db.user(id, pwd, name)"
+	//		+ " VALUES(#{id},#{pwd},#{name})")
+	
+	@Insert("INSERT INTO teachers_db.user(id, pwd, name, role)"
+	        + " VALUES(#{id}, #{pwd}, #{name}, #{role})")
 	void insertUser(User user); // 사용 함수
 	
 	// read
-	@Select("SELECT id,pwd FROM teachers_db.user WHERE id=#{id}")
+	@Select("SELECT * FROM teachers_db.user WHERE id=#{id}")
 	User findByUsername(String id); // username 가지고 옴 
 	 
 	@Select("SELECT name FROM teachers_db.user WHERE id=#{id}")
