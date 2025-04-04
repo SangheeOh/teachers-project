@@ -4,15 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
-
+import jakarta.servlet.http.HttpSession;
 import ch.qos.logback.core.model.Model;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.project.teachers.entity.User;
 
 
 @Controller
 public class PageController {
+	
 	
 	// 페이지를 조회,이동할 때 getMapping 사용
 		@GetMapping("/")
@@ -20,7 +23,6 @@ public class PageController {
 			return "index";
 		}
 		
-
 		// 로그인 페이지
 		@GetMapping("/loginPage")
 		public String loginPage(HttpServletRequest request,org.springframework.ui.Model model) {
