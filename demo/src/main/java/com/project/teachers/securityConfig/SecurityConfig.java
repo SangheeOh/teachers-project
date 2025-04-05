@@ -42,7 +42,7 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 		// 접근 권한 설정
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
 		.requestMatchers(HttpMethod.POST,"/login", "/register").permitAll()
@@ -52,6 +52,12 @@ public class SecurityConfig {
 		//위에 적힌 거 외에는 로그인한 사용자만 접근가능 
 		.anyRequest().authenticated()
 		)
+		//구글 로그인
+		.oauth2Login(oauth2 -> oauth2
+	            .loginPage("/login") // 사용자 지정 로그인 페이지 (index.jsp로 연결해도 됨)
+	            .defaultSuccessUrl("/") // 로그인 성공 후 리디렉션 경로
+	            )
+		
 		
 		// 로그인 설정
 		.formLogin(
@@ -106,6 +112,18 @@ public class SecurityConfig {
 					// 유저이름 저장 
 					session.setAttribute("id", authentication.getName());
 					session.setAttribute("isAuthenticated", true);
+					
+					//구글 로그인 관련
+					Object principal = authentication.getPrincipal();
+				    if (principal instanceof CustomUser customUser) {
+				        String name = customUser.getUser().getName();
+				        session.setAttribute("name", name);
+				    } else if (principal instanceof org.springframework.security.oauth2.core.user.OAuth2User oauth2User) {
+				        String name = oauth2User.getAttribute("name"); // or "email"
+				        session.setAttribute("name", name);
+				    }
+					
+					
 					
 					// CustomUser로부터 name을 꺼내서 세션에 저장
 					CustomUser customUser = (CustomUser) authentication.getPrincipal();
