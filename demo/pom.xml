@@ -129,6 +129,12 @@
 
 
 
+		<!-- Spring Security OAuth2 Client (구글 로그인 등 포함) -->
+		<dependency>
+	    	<groupId>org.springframework.boot</groupId>
+	   	 <artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

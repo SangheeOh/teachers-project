@@ -22,7 +22,7 @@
 				</div>
 				<div class="input-group">
 					<label for="pwd">비밀번호</label>
-					<input type="text" id="pwd" name="pwd" required/>
+					<input type="password" id="pwd" name="pwd" required/>
 				</div>
 				<div class="input-group">
 					<label for="name">작성자</label>

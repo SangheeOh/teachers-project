@@ -28,34 +28,42 @@
 
 
 <a href="usertest.me">로그인 구현_조회하기(USER TABLE)</a>
-<br><br><br><br><br>
+<br><br><br><br>
 
 
 <a href="insert.me">DB INSERT(Menu테이블_test용)</a>
-<br><br><br><br><br>
+<br><br><br><br>
 
 
 <a href="select.me">SELECT 조회하기(Menu테이블_test용)</a>
-<br><br><br><br><br>
+<br><br><br><br>
 
-
-
-
-<!-- 카네즈 사항 -->
 
 <!--헤더의 내용이 다 들어감-->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 	<div id="container">
 		<div id="menuAdmin">
-			<h2 id="menuAdminH2">login/logout</h2>
-			<br><br><br>
+			<h2 id="menuAdminH2">로그인/로그아웃/회원가입</h2>
+			<br><br><br><br>
 			
+			<!-- ///// 로그인 안 된 상태면 로그인 버튼들(일반, Google) 보이기 /////-->
+				<sec:authorize access="isAnonymous()">
+				    <!-- 구글 로그인 버튼 -->
+				    <a href="/oauth2/authorization/google">
+				        <img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" />
+				    </a>
+				    
+				    <br><br>
+				
+				    <!-- 일반 로그인 버튼 -->
+				    <a href="${pageContext.request.contextPath}/loginPage">로그인하러 가기</a>
+				</sec:authorize>
+		
 			
-			
-			<!-- ✅ 로그인한 경우에만 환영 팝업 띄우기 -->				
-   <c:if test="${not empty sessionScope.name}">
-    <script>
+		<!-- ✅ (일반) 로그인한 경우에만 환영 팝업 띄우기 -->				
+	    <c:if test="${not empty sessionScope.name}">
+	    <script>
         const currentUser = '${sessionScope.name}';
         const shownUser = sessionStorage.getItem('popupShownUser');
 
@@ -64,33 +72,28 @@
 
         // 로그인 페이지에서 온 경우에만 팝업 보여주기
         if (from.includes('/loginPage') && shownUser !== currentUser) {
-            alert("😊 환영합니다, " + currentUser + " 님!");
+            alert("😊 환영합니다, " + currentUser + "님!");
             sessionStorage.setItem('popupShownUser', currentUser);
         }
-    </script>
-</c:if>
+    	</script>
+		</c:if>
 
-    <!-- ✅ 로그인 상태이면 로그아웃 버튼 표시 -->
-    <c:if test="${not empty sessionScope.name}">
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <!-- CSRF 토큰 hidden으로 전송 -->
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <button type="submit">로그아웃</button>
-        </form>
-    </c:if>
 
-    <!-- ✅ 로그인 안 된 경우 -->
-    <c:if test="${empty sessionScope.name}">
-        <a href="${pageContext.request.contextPath}/loginPage">로그인하러 가기</a>
-    </c:if>
-			
-	<!-- ✅ 회원가입 -->
-			
-		<br><br><br>	
-		<a href="registerPage">회원가입 하세요</a>	
-			
-			
-
+	    <!-- 로그인한 상태면 로그아웃 버튼 하나만 보이도록 (일반, Google) -->
+	    <sec:authorize access="isAuthenticated()">
+	      <form action="${pageContext.request.contextPath}/logout" method="post">
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        <button type="submit">로그아웃</button>
+	      </form>
+   		 </sec:authorize>
+	    
+		
+		<!-- ✅ 회원가입 (일반, Google 모두 로그인 안했을때만 보임)  -->
+		<sec:authorize access="isAnonymous()">
+		    <br><br><br>    
+		    <a href="registerPage">회원가입 해주세요</a>
+		</sec:authorize>
+	
 			<div id="menuList">
 			</div>
 		</div>
