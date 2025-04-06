@@ -28,15 +28,15 @@
 
 
 <a href="usertest.me">로그인 구현_조회하기(USER TABLE)</a>
-<br><br><br><br><br>
+<br><br><br><br>
 
 
 <a href="insert.me">DB INSERT(Menu테이블_test용)</a>
-<br><br><br><br><br>
+<br><br><br><br>
 
 
 <a href="select.me">SELECT 조회하기(Menu테이블_test용)</a>
-<br><br><br><br><br>
+<br><br><br><br>
 
 
 <!--헤더의 내용이 다 들어감-->
@@ -72,7 +72,7 @@
 
         // 로그인 페이지에서 온 경우에만 팝업 보여주기
         if (from.includes('/loginPage') && shownUser !== currentUser) {
-            alert("😊 환영합니다, " + currentUser + " 님!");
+            alert("😊 환영합니다, " + currentUser + "님!");
             sessionStorage.setItem('popupShownUser', currentUser);
         }
     	</script>
@@ -94,8 +94,6 @@
 		    <a href="registerPage">회원가입 해주세요</a>
 		</sec:authorize>
 	
-			
-
 			<div id="menuList">
 			</div>
 		</div>
