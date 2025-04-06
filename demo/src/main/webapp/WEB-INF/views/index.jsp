@@ -91,7 +91,7 @@
 		<!-- ✅ 회원가입 (일반, Google 모두 로그인 안했을때만 보임)  -->
 		<sec:authorize access="isAnonymous()">
 		    <br><br><br>    
-		    <a href="registerPage">회원가입 해주세요 test끝</a>
+		    <a href="registerPage">회원가입 해주세요</a>
 		</sec:authorize>
 	
 			
