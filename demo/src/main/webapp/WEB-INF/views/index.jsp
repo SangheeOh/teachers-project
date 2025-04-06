@@ -26,7 +26,7 @@
 
 <br><br><br><br><br>
 
-<!-- 연습용 -->
+<!-- 연습용, 추후 수정 예정 -->
 <a href="usertest.me">로그인 구현_조회하기(USER TABLE)</a>
 <br><br><br><br>
 
