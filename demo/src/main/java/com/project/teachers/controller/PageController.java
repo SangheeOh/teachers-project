@@ -45,5 +45,11 @@ public class PageController {
 			model.addAttribute("_csrf", csrfToken);
 			return "register/index";
 		}	
+		
+		//결제요청 페이지
+		@GetMapping("/payment")
+		 public String paymentPage() {
+			 return "payment/payment"; 
+		 }
 
 }
