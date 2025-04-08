@@ -117,9 +117,9 @@
     <div class="form-group">
         <label for="program">프로그램 선택</label>
         <select id="program" onchange="updatePrice()">
-            <option value="basic">기본 프로그램 (50,000원)</option>
-            <option value="premium">프리미엄 프로그램 (90,000원)</option>
-            <option value="vip">VIP 프로그램 (130,000원)</option>
+            <option value="basic">기본 프로그램 (1원)</option>
+            <option value="premium">프리미엄 프로그램 (2원)</option>
+            <option value="vip">VIP 프로그램 (3원)</option>
         </select>
     </div>
 
@@ -145,9 +145,9 @@
         let price = 0;
 
         switch (program) {
-            case "basic": price = 50000; break;
-            case "premium": price = 90000; break;
-            case "vip": price = 130000; break;
+            case "basic": price = 1; break;
+            case "premium": price = 2; break;
+            case "vip": price = 3; break;
         }
 
         const total = price * count;
@@ -170,20 +170,25 @@
             buyer_name: buyer_name,
             buyer_tel: "01012345678",
             buyer_email: "hong@example.com",
+            
         }, function (rsp) {
+        	console.log("결제 응답:", rsp); // 👉 F12 콘솔에서 응답 확인
             if (rsp.success) {
                 fetch("/payment/verify", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid
+                        merchant_uid: rsp.merchant_uid,
+                        reservation_no: 3  // 🔥 실제 예약 번호
                     })
                 })
                 .then(res => res.json())
                 .then(data => {
+                	console.log("서버 응답 결과2:", data); // 👉 서버 응답 콘솔 출력
                     if (data.status === "paid") {
                         window.location.href = "/payment/success.jsp";
                     } else {
