@@ -42,16 +42,17 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 		// 접근 권한 설정
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
-		.requestMatchers(HttpMethod.POST,"/login", "/register").permitAll()
+		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify").permitAll()
 		.requestMatchers("/resources/**","/WEB-INF/**").permitAll()
 		// noticeAdd, noticeModifyPage는 admin, manager 일 때만 접근 가능
 		.requestMatchers("/noticeAdd","noticeModifyPage").hasAnyAuthority("MEMBER","TRAINER")
 		//위에 적힌 거 외에는 로그인한 사용자만 접근가능 
 		.anyRequest().authenticated()
 		)
+		
 		//구글 로그인
 		.oauth2Login(oauth2 -> oauth2
 	            .loginPage("/login") // 사용자 지정 로그인 페이지 (index.jsp로 연결해도 됨)
@@ -153,9 +154,11 @@ public class SecurityConfig {
 		// 허용할 URL
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:8080"));
 		// 허용할 HTTP 메서드 
-		configuration.setAllowedMethods(Arrays.asList("Get", "POST", "PUT", "DELETE"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 		// 허용할 HTTP 헤더
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		
+		configuration.setAllowCredentials(true); //추가함
 		
 		org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
 		// 모든 경로에 대해 CORS 설정 

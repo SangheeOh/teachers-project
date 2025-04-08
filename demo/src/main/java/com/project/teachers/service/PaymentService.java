@@ -30,15 +30,26 @@ public class PaymentService {
     private static final String IMP_URL = "https://api.iamport.kr";  // 아임포트 API URL
 
     // 결제 검증 후 DB 저장
-    public Payment verifyAndSavePayment(String impUid, String merchantUid) {
+    public Payment verifyAndSavePayment(String impUid, String merchantUid,int reservationNo) {
+    	
+    	//콘솔 확인
+    	System.out.println("🔶 [Service] verifyAndSavePayment 호출");
+    	
+    	
         // 1. 아임포트 API로 결제 검증 요청
         Payment payment = verifyPayment(impUid);
 
         if (payment != null && "paid".equals(payment.getStatus())) {
-            // 2. 결제 상태가 'paid'이면 DB에 저장
+            
+        	payment.setMerchantUid(merchantUid);
+        	payment.setReservation_no(reservationNo);
+        	
+        	// 2. 결제 상태가 'paid'이면 DB에 저장
             return savePayment(payment);
         }
-
+        
+        //콘솔 확인
+        System.out.println("❌ [Service] 결제 상태가 'paid'가 아님");
         return null;  // 결제 검증 실패 시 null 반환
     }
 
@@ -70,6 +81,8 @@ public class PaymentService {
                     payment.setMerchantUid((String) responseData.get("merchant_uid"));
                     payment.setAmount(new BigDecimal((Integer) responseData.get("amount")));
                     payment.setStatus((String) responseData.get("status"));
+                    payment.setMethod((String) responseData.get("pay_method"));         // 🔥 추가됨
+                    payment.setPayment_type((String) responseData.get("pg_provider"));  // 🔥 추가됨
 
                     return payment;
                 }
@@ -109,8 +122,17 @@ public class PaymentService {
 
     // 결제 정보 DB 저장
     private Payment savePayment(Payment payment) {
+    	
+    	//콘솔확인
+    	System.out.println("💾 [Service] DB 저장 시도");
+        System.out.println("payment: " + payment);
+        
         // Mapper를 사용하여 DB에 결제 정보 저장
         paymentMapper.insertPayment(payment);  // PaymentMapper의 insertPayment 메서드 사용
+        
+        //콘솔확인
+        System.out.println("✅ [Service] DB 저장 완료");
+        
         return payment;  // 저장된 Payment 객체 반환
     }
 }

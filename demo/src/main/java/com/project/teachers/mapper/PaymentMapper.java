@@ -16,8 +16,8 @@
 	    Payment selectPaymentById(int payment_no);
 	    
 	    // 결제 정보 삽입
-	    @Insert("INSERT INTO PAYMENT (reservation_no, amount, method, payment_type, status, createdate, imp_uid, merchant_uid) " +
-	            "VALUES (#{reservation_no}, #{amount}, #{method}, #{payment_type}, #{status}, #{createdate}, #{impUid}, #{merchantUid})")
+	    @Insert("INSERT INTO PAYMENT (reservation_no, amount, method, payment_type, status, imp_uid, merchant_uid) " +
+	            "VALUES (#{reservation_no}, #{amount}, #{method}, #{payment_type}, #{status}, #{impUid}, #{merchantUid})")
 	    void insertPayment(Payment payment);
 	
 	    // 결제 정보 업데이트
