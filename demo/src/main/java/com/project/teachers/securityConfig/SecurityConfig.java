@@ -42,7 +42,7 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 		// 접근 권한 설정
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
 		.requestMatchers(HttpMethod.POST,"/login", "/register").permitAll()
