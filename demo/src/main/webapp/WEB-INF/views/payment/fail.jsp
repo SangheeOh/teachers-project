@@ -51,7 +51,6 @@
 <div class="message-box">
     <div class="emoji">😵‍💫</div>
     <div class="fail-text">요청하신 내용 처리 실패했습니다.</div>
-    <a href="home.jsp" class="home-link">홈으로 돌아가기</a>
 </div>
 </body>
 </html>

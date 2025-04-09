@@ -1,42 +1,40 @@
 package com.project.teachers.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.teachers.entity.Payment;
 import com.project.teachers.service.PaymentService;
 
-@RestController
+@Controller
 @RequestMapping("/payment")
 public class PaymentController {
-	
+    
     @Autowired
     private PaymentService paymentService;
 
     @PostMapping("/verify")
-    public ResponseEntity<?> verifyPayment(@RequestBody Payment request) {
-        
-    	//콘솔 확인하기
-    	System.out.println("🔵 [PaymentController] 요청 도착");
+    public String verifyPayment(@ModelAttribute Payment request) {
+
+        System.out.println("🔵 [PaymentController] 요청 도착");
         System.out.println("impUid: " + request.getImpUid());
         System.out.println("merchantUid: " + request.getMerchantUid());
         System.out.println("reservation_no: " + request.getReservationNo());
-    	
-    	
-    	// impUid, merchantUid를 Payment 객체에서 직접 꺼냄
+
         Payment payment = paymentService.verifyAndSavePayment(
             request.getImpUid(),
             request.getMerchantUid(),
-            request.getReservationNo() //예약정보도 넘겨야함
+            request.getReservationNo()
         );
 
         if (payment != null && "paid".equals(payment.getStatus())) {
-        	return ResponseEntity.ok(Map.of("status", "paid")); 
+            
+        	System.out.println("결제성공! 이제 돌아가기만 하면 돼?");
+        	return "/payment/success";
         } else {
-        	 return ResponseEntity.ok(Map.of("status", "fail"));
+        	System.out.println("결제 실패! 이제 돌아가기만 하면 돼?");
+            return "/payment/fail";
         }
     }
 }

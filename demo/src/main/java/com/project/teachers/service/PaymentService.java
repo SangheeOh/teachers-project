@@ -146,25 +146,36 @@ public class PaymentService {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://api.iamport.kr/users/getToken";
 
+        // 헤더 설정: Content-Type을 application/json으로 설정
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        // 요청 본문에 담을 데이터 (Map 사용)
         Map<String, String> body = new HashMap<>();
-        body.put("imp_key", apiKey);
-        body.put("imp_secret", apiSecret);
+        body.put("imp_key", apiKey);  // 아임포트 API 키
+        body.put("imp_secret", apiSecret);  // 아임포트 비밀키
 
+        // HttpEntity 생성, 바디와 헤더를 함께 전달
         HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
 
         try {
+            // RestTemplate을 사용하여 POST 요청을 보냄
             ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
+
+            // 응답에서 access_token을 추출
             Map responseBody = response.getBody();
-            return (String) ((Map) responseBody.get("response")).get("access_token");
+            if (responseBody != null) {
+                Map responseData = (Map) responseBody.get("response");
+                if (responseData != null) {
+                    return (String) responseData.get("access_token");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
-    }
 
+        return null;  // 토큰 발급 실패 시 null 반환
+    }
     
 
     // 결제 정보 DB 저장

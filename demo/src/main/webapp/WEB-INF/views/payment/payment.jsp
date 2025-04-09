@@ -9,11 +9,6 @@
 
     <!-- ✅ Iamport 결제 SDK -->
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    
-    <!-- head에 추가함 -->
-    <meta name="_csrf" content="${_csrf.token}" />
-	<meta name="_csrf_header" content="${_csrf.headerName}" />
-    
 
     <style>
         :root {
@@ -120,9 +115,6 @@
 <div class="container">
     <h2>예약 및 결제</h2>
 
-    <!-- ✅ CSRF hidden input -->
-    <input type="hidden" id="_csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
     <div class="form-group">
         <label for="program">프로그램 선택</label>
         <select id="program" onchange="updatePrice()">
@@ -146,7 +138,7 @@
 
 <script>
     const IMP = window.IMP;
-    IMP.init("imp22848043"); // 🔑 본인 아임포트 식별코드로 교체
+    IMP.init("imp22848043"); // 🔑 아임포트 가맹점 식별코드
 
     function updatePrice() {
         const program = document.getElementById("program").value;
@@ -163,12 +155,13 @@
         document.getElementById("totalPrice").innerText = total.toLocaleString() + "원";
     }
 
-    function requestIamportPayment() {
+    async function requestIamportPayment() {
         const amount = parseInt(document.getElementById("totalPrice").innerText.replace(/[^\d]/g, ''));
         const program = document.getElementById("program").value;
         const count = document.getElementById("people").value;
         const merchant_uid = "order_" + new Date().getTime(); // 고유 주문번호
-        const buyer_name = "홍길동"; // TODO: 세션에서 로그인 사용자 정보로 변경
+        const buyer_name = "홍길동"; // 세션에서 사용자 이름 받아오면 좋음
+        const reservationNo = 3; // 예약 번호, 일단 고정값
 
         IMP.request_pay({
             pg: "html5_inicis.INIpayTest",
@@ -179,44 +172,36 @@
             buyer_name: buyer_name,
             buyer_tel: "01012345678",
             buyer_email: "hong@example.com",
-        }, function (rsp) {
-            console.log("결제 응답:", rsp);
+        }, async function (rsp) {
             if (rsp.success) {
-                //const csrfToken = document.getElementById("_csrf").value;  아래 코드로 대체
-                const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-				const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
-                fetch("/payment/verify", {
+                const response = await fetch("/payment/verify", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        [csrfHeader]: csrfToken  // ← 요거 꼭 있어야 해!
-                        //"X-CSRF-TOKEN": csrfToken 위 코드로 대체
+                        "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    credentials: 'include',
-                    body: JSON.stringify({
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid,
-                        reservation_no: 3 // 🔥 실제 예약 번호
+                    body: new URLSearchParams({
+                        impUid: rsp.imp_uid,
+                        merchantUid: rsp.merchant_uid,
+                        reservationNo: reservationNo
                     })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    console.log("서버 응답 결과:", data);
-                    if (data.status === "paid") {
-                        location.href = "/payment/success.jsp";
-                    } else {
-                        //window.location.href = "/payment/fail.jsp";
-                        location.href = "/payment/fail.jsp";
-                    }
                 });
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    const text = await response.text();
+                    if (text.includes("/payment/success")) {
+                        window.location.href = "/payment/success";
+                    } else {
+                        window.location.href = "/payment/fail";
+                    }
+                }
             } else {
-                alert("결제에 실패하거나 취소되었습니다: " + rsp.error_msg);
+                alert("결제가 취소되었거나 실패하였습니다.");
+                window.location.href = "/payment/fail";
             }
         });
     }
-
-    updatePrice(); // 페이지 로드 시 초기 금액 계산
-</script>
+ </script>
 </body>
 </html>
