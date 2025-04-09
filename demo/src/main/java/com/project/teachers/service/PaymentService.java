@@ -33,7 +33,7 @@ public class PaymentService {
     // 결제 검증 후 DB 저장
     public Payment verifyAndSavePayment(String impUid, String merchantUid,int reservationNo) {
     	
-    	//콘솔 확인
+    	//콘솔 확인 (토큰은 잘 넘어오는 것 같음)
     	System.out.println("🔶 [Service] verifyAndSavePayment 호출");
     	
     	
