@@ -16,7 +16,8 @@ public class PaymentController {
 
     @PostMapping("/verify")
     public String verifyPayment(@ModelAttribute Payment request) {
-
+    	
+    	//토큰 확인
         System.out.println("🔵 [PaymentController] 요청 도착");
         System.out.println("impUid: " + request.getImpUid());
         System.out.println("merchantUid: " + request.getMerchantUid());
