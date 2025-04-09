@@ -35,7 +35,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		//csrf 방지설정
-		http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+		http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringRequestMatchers(new AntPathRequestMatcher("/payment/verify", "POST")))
 		// CORS 설정(특정 서버에서만 데이터를 주고 받음)
 		.cors(cors -> cors.configurationSource(corsCorsfigurationSource()))
 		// 세션 필요할 때만 생
@@ -48,7 +48,7 @@ public class SecurityConfig {
 		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify").permitAll()
 		.requestMatchers("/resources/**","/WEB-INF/**").permitAll()
 		// noticeAdd, noticeModifyPage는 admin, manager 일 때만 접근 가능
-		.requestMatchers("/noticeAdd","noticeModifyPage").hasAnyAuthority("MEMBER","TRAINER")
+		.requestMatchers("/noticeAdd","/noticeModifyPage").hasAnyAuthority("MEMBER","TRAINER")
 		//위에 적힌 거 외에는 로그인한 사용자만 접근가능 
 		.anyRequest().authenticated()
 		)
@@ -134,7 +134,7 @@ public class SecurityConfig {
 					// 로그인 성공 후 / 로 리다이렉트
 					response.sendRedirect(request.getContextPath()+"/");
 					
-					super.onAuthenticationSuccess(request, response, authentication);
+					//super.onAuthenticationSuccess(request, response, authentication); 원래는 있었는데 무한루프 가능성
 			}
 		};
 		

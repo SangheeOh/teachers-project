@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>예약 및 결제</title>
@@ -8,6 +9,11 @@
 
     <!-- ✅ Iamport 결제 SDK -->
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    
+    <!-- head에 추가함 -->
+    <meta name="_csrf" content="${_csrf.token}" />
+	<meta name="_csrf_header" content="${_csrf.headerName}" />
+    
 
     <style>
         :root {
@@ -114,12 +120,15 @@
 <div class="container">
     <h2>예약 및 결제</h2>
 
+    <!-- ✅ CSRF hidden input -->
+    <input type="hidden" id="_csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
     <div class="form-group">
         <label for="program">프로그램 선택</label>
         <select id="program" onchange="updatePrice()">
             <option value="basic">기본 프로그램 (1원)</option>
-            <option value="premium">프리미엄 프로그램 (2원)</option>
-            <option value="vip">VIP 프로그램 (3원)</option>
+            <option value="premium">프리미엄 프로그램 (10원)</option>
+            <option value="vip">VIP 프로그램 (100원)</option>
         </select>
     </div>
 
@@ -129,7 +138,7 @@
     </div>
 
     <div class="price-box">
-        총 결제 금액: <span id="totalPrice">50,000원</span>
+        총 결제 금액: <span id="totalPrice">1원</span>
     </div>
 
     <button type="button" class="pay-btn" onclick="requestIamportPayment();">결제하기</button>
@@ -146,8 +155,8 @@
 
         switch (program) {
             case "basic": price = 1; break;
-            case "premium": price = 2; break;
-            case "vip": price = 3; break;
+            case "premium": price = 10; break;
+            case "vip": price = 100; break;
         }
 
         const total = price * count;
@@ -170,29 +179,35 @@
             buyer_name: buyer_name,
             buyer_tel: "01012345678",
             buyer_email: "hong@example.com",
-            
         }, function (rsp) {
-        	console.log("결제 응답:", rsp); // 👉 F12 콘솔에서 응답 확인
+            console.log("결제 응답:", rsp);
             if (rsp.success) {
+                //const csrfToken = document.getElementById("_csrf").value;  아래 코드로 대체
+                const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+				const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
                 fetch("/payment/verify", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        [csrfHeader]: csrfToken  // ← 요거 꼭 있어야 해!
+                        //"X-CSRF-TOKEN": csrfToken 위 코드로 대체
                     },
                     credentials: 'include',
                     body: JSON.stringify({
                         imp_uid: rsp.imp_uid,
                         merchant_uid: rsp.merchant_uid,
-                        reservation_no: 3  // 🔥 실제 예약 번호
+                        reservation_no: 3 // 🔥 실제 예약 번호
                     })
                 })
                 .then(res => res.json())
                 .then(data => {
-                	console.log("서버 응답 결과2:", data); // 👉 서버 응답 콘솔 출력
+                    console.log("서버 응답 결과:", data);
                     if (data.status === "paid") {
-                        window.location.href = "/payment/success.jsp";
+                        location.href = "/payment/success.jsp";
                     } else {
-                        window.location.href = "/payment/fail.jsp";
+                        //window.location.href = "/payment/fail.jsp";
+                        location.href = "/payment/fail.jsp";
                     }
                 });
             } else {

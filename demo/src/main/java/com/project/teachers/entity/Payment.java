@@ -3,44 +3,49 @@ package com.project.teachers.entity;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Payment {
 
-    private int payment_no;       // 결제 번호 (PK)
-    private int reservation_no;   // 예약 번호 (foreign key)
-    private BigDecimal amount;    // 결제 금액 (DECIMAL(10, 2)로 매핑)
-    private String method;        // 결제 방법 (ENUM)
-    private String payment_type;  // 결제 유형 (ENUM)
-    private String status;        // 결제 상태 (ENUM)
-    private Timestamp createdate; // 결제 생성 일시 (TIMESTAMP)
+    private int paymentNo;             // 결제 번호 (PK)
+    private int reservationNo;         // 예약 번호 (foreign key)
+    private int amount;				   // DECIMAL(10,2) → INT (현재는 국내만 진행하므로)
+    private String method;             // 결제 방법 (ENUM)
+    private String paymentType;        // 결제 유형 (ENUM)
+    private String status;             // 결제 상태 (ENUM)
+    private Timestamp createDate;      // 결제 생성 일시 (TIMESTAMP)
 
-    private String impUid;        // 아임포트 결제 고유 ID
-    private String merchantUid;   // 주문 고유 ID
+    @JsonProperty("imp_uid")
+    private String impUid;             // 아임포트 결제 고유 ID
 
-    // 기본 생성자
+    @JsonProperty("merchant_uid")
+    private String merchantUid;        // 주문 고유 ID
+
     public Payment() {}
 
-    // Getter 및 Setter
-    public int getPayment_no() {
-        return payment_no;
+    // Getters & Setters
+
+    public int getPaymentNo() {
+        return paymentNo;
     }
 
-    public void setPayment_no(int payment_no) {
-        this.payment_no = payment_no;
+    public void setPaymentNo(int paymentNo) {
+        this.paymentNo = paymentNo;
     }
 
-    public int getReservation_no() {
-        return reservation_no;
+    public int getReservationNo() {
+        return reservationNo;
     }
 
-    public void setReservation_no(int reservation_no) {
-        this.reservation_no = reservation_no;
+    public void setReservationNo(int reservationNo) {
+        this.reservationNo = reservationNo;
     }
 
-    public BigDecimal getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -52,12 +57,12 @@ public class Payment {
         this.method = method;
     }
 
-    public String getPayment_type() {
-        return payment_type;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setPayment_type(String payment_type) {
-        this.payment_type = payment_type;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
     public String getStatus() {
@@ -68,12 +73,12 @@ public class Payment {
         this.status = status;
     }
 
-    public Timestamp getCreatedate() {
-        return createdate;
+    public Timestamp getCreateDate() {
+        return createDate;
     }
 
-    public void setCreatedate(Timestamp createdate) {
-        this.createdate = createdate;
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
     }
 
     public String getImpUid() {

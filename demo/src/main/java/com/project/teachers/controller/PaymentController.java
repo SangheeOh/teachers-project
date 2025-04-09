@@ -23,14 +23,14 @@ public class PaymentController {
     	System.out.println("🔵 [PaymentController] 요청 도착");
         System.out.println("impUid: " + request.getImpUid());
         System.out.println("merchantUid: " + request.getMerchantUid());
-        System.out.println("reservation_no: " + request.getReservation_no());
+        System.out.println("reservation_no: " + request.getReservationNo());
     	
     	
     	// impUid, merchantUid를 Payment 객체에서 직접 꺼냄
         Payment payment = paymentService.verifyAndSavePayment(
             request.getImpUid(),
             request.getMerchantUid(),
-            request.getReservation_no() //예약정보도 넘겨야함
+            request.getReservationNo() //예약정보도 넘겨야함
         );
 
         if (payment != null && "paid".equals(payment.getStatus())) {

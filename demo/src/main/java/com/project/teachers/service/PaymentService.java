@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.teachers.entity.Payment;
 import com.project.teachers.mapper.PaymentMapper;  // PaymentMapper 추가
 
@@ -42,7 +43,7 @@ public class PaymentService {
         if (payment != null && "paid".equals(payment.getStatus())) {
             
         	payment.setMerchantUid(merchantUid);
-        	payment.setReservation_no(reservationNo);
+        	payment.setReservationNo(reservationNo);
         	
         	// 2. 결제 상태가 'paid'이면 DB에 저장
             return savePayment(payment);
@@ -53,13 +54,19 @@ public class PaymentService {
         return null;  // 결제 검증 실패 시 null 반환
     }
 
+   
+    
     // 아임포트 API에서 결제 검증
     private Payment verifyPayment(String impUid) {
         // 1. 아임포트 인증 토큰 요청
         String accessToken = getAccessToken();
 
         if (accessToken != null) {
-            // 2. 인증된 토큰으로 결제 검증 요청
+        	
+        	System.out.println("🔑 apiKey: " + apiKey);
+        	System.out.println("🔐 apiSecret: " + apiSecret);
+
+        	// 2. 인증된 토큰으로 결제 검증 요청
             String url = IMP_URL + "/payments/" + impUid;
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + accessToken);
@@ -79,11 +86,12 @@ public class PaymentService {
                     Payment payment = new Payment();
                     payment.setImpUid(impUid);
                     payment.setMerchantUid((String) responseData.get("merchant_uid"));
-                    payment.setAmount(new BigDecimal((Integer) responseData.get("amount")));
+                    payment.setAmount((Integer) responseData.get("amount"));
                     payment.setStatus((String) responseData.get("status"));
-                    payment.setMethod((String) responseData.get("pay_method"));         // 🔥 추가됨
-                    payment.setPayment_type((String) responseData.get("pg_provider"));  // 🔥 추가됨
+                    payment.setMethod((String) responseData.get("pay_method"));		  // 🔥 추가됨
+                    payment.setPaymentType((String) responseData.get("pg_provider")); // 🔥 추가됨
 
+                    System.out.println("🔍 [Service] 결제 검증 응답: " + responseData);
                     return payment;
                 }
             }
@@ -92,18 +100,30 @@ public class PaymentService {
         return null;  // 결제 검증 실패 시 null 반환
     }
 
+    
+    
+    
+/*
     // 아임포트 인증 토큰 발급
     private String getAccessToken() {
-        String url = IMP_URL + "/users/getToken";
+        
+    	System.out.println("🔑 apiKey(getAccessToken까지 도착): " + apiKey);
+    	System.out.println("🔐 apiSecret(getAccessToken까지 도착): " + apiSecret);
+    	
+    	String url = IMP_URL + "/users/getToken";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        //JSON 문자열로 바디 만들기(실패)
+        //String jsonBody = String.format("{\"imp_key\":\"%s\", \"imp_secret\":\"%s\"}", apiKey, apiSecret);
+        //HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
 
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("imp_key", apiKey);  // 아임포트 API 키
         requestBody.put("imp_secret", apiSecret);  // 아임포트 비밀키
-
+       
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestBody, headers);
-
+        
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
 
@@ -120,11 +140,38 @@ public class PaymentService {
         return null;  // 인증 실패 시 null 반환
     }
 
+*/
+    //새로운 코드
+    public String getAccessToken() {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://api.iamport.kr/users/getToken";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, String> body = new HashMap<>();
+        body.put("imp_key", apiKey);
+        body.put("imp_secret", apiSecret);
+
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
+
+        try {
+            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
+            Map responseBody = response.getBody();
+            return (String) ((Map) responseBody.get("response")).get("access_token");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    
+
     // 결제 정보 DB 저장
     private Payment savePayment(Payment payment) {
     	
     	//콘솔확인
-    	System.out.println("💾 [Service] DB 저장 시도");
+    	System.out.println("💾 [Service] DB 저장 시도, 반드시 이 로그는 찍혀야함!!");
         System.out.println("payment: " + payment);
         
         // Mapper를 사용하여 DB에 결제 정보 저장
