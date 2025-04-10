@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.teachers.entity.Payment;
 import com.project.teachers.mapper.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,16 +18,17 @@ public class PaymentService {
     @Autowired
     private PaymentMapper paymentMapper;
 
+    @Value("${iamport.api.key}")
+    private String apiKey;
+
+    @Value("${iamport.api.secret}")
+    private String apiSecret;
+
     private static final String IMP_URL = "https://api.iamport.kr";
-    private static final String HARDCODED_API_KEY = "8375253886661703";
-    private static final String HARDCODED_API_SECRET = "mZjdEpxnpIFHY2WGvhG8Q43vgwn0iMI12AtQ3nd1UABkrQ3CjcQUrSPM8MKpsKbYzzQQOXItgp8dCG1d";
 
     public Payment verifyAndSavePayment(String impUid, String merchantUid, int reservationNo) {
         System.out.println("🔶 [Service] verifyAndSavePayment 호출");
-
         System.out.println("🔐 impUid(service): " + impUid);
-        System.out.println("🔑 imp_key(service): " + HARDCODED_API_KEY);
-        System.out.println("🔐 imp_secret(service): " + HARDCODED_API_SECRET);
 
         Payment payment = verifyPayment(impUid);
 
@@ -52,7 +54,7 @@ public class PaymentService {
 
         String url = IMP_URL + "/payments/" + impUid;
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + accessToken); // ✅ 중요!!
+        headers.set("Authorization", "Bearer " + accessToken);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
@@ -93,7 +95,8 @@ public class PaymentService {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            String json = "{\"imp_key\":\"" + HARDCODED_API_KEY + "\",\"imp_secret\":\"" + HARDCODED_API_SECRET + "\"}";
+            // 동적으로 JSON 생성
+            String json = "{\"imp_key\":\"" + apiKey + "\",\"imp_secret\":\"" + apiSecret + "\"}";
             HttpEntity<String> entity = new HttpEntity<>(json, headers);
 
             ResponseEntity<String> response = restTemplate.postForEntity(
