@@ -1,12 +1,14 @@
 package com.project.teachers.mapper;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Delete;
 
 import com.project.teachers.entity.Payment;
 
+@Mapper
 public interface PaymentMapper {
 
     // 결제 정보 조회 (paymentNo로 결제 정보 조회)
