@@ -29,10 +29,11 @@ public class PaymentController {
 
         if (result != null && "paid".equals(result.getStatus())) {
             System.out.println("✅ 결제 성공! DB 저장 완료");
-            return "su";
+           return "payment/success";
+
         } else {
             System.out.println("❌ 결제 실패 또는 검증 실패");
-            return "fa";
+            return "payment/fail";
         }
     }
 }
