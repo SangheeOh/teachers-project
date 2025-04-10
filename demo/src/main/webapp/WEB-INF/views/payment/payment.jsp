@@ -85,7 +85,8 @@
                     },
                     body: new URLSearchParams({
                         impUid: rsp.imp_uid,
-                        merchantUid: rsp.merchant_uid
+                        merchantUid: rsp.merchant_uid,
+                        reservationNo: 3 // ← 여기 추가!
                     })
                 });
                 const result = await response.text();
