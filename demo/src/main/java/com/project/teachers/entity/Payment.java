@@ -1,6 +1,5 @@
 package com.project.teachers.entity;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,18 +7,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Payment {
 
     private int paymentNo;             // 결제 번호 (PK)
-    private int reservationNo;         // 예약 번호 (foreign key)
-    private int amount;				   // DECIMAL(10,2) → INT (현재는 국내만 진행하므로)
-    private String method;             // 결제 방법 (ENUM)
-    private String paymentType;        // 결제 유형 (ENUM)
-    private String status;             // 결제 상태 (ENUM)
-    private Timestamp createDate;      // 결제 생성 일시 (TIMESTAMP)
-
+    private int reservationNo;         // 예약 번호 (FK)
+    private int amount;                // 결제 금액
+    private String method;             // PG사 (html5_inicis, kakaopay 등)
+    private String paymentType;        // 결제 유형 (card, phone, vbank 등)
+    private String status;             // 결제 상태 (completed, failed, pending)
+    
     @JsonProperty("imp_uid")
     private String impUid;             // 아임포트 결제 고유 ID
-
+    
     @JsonProperty("merchant_uid")
     private String merchantUid;        // 주문 고유 ID
+
+    private Timestamp createDate;      // 결제 생성일시
 
     public Payment() {}
 
@@ -73,14 +73,6 @@ public class Payment {
         this.status = status;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
-
     public String getImpUid() {
         return impUid;
     }
@@ -95,5 +87,13 @@ public class Payment {
 
     public void setMerchantUid(String merchantUid) {
         this.merchantUid = merchantUid;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
     }
 }
