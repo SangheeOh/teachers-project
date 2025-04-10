@@ -124,7 +124,8 @@ public class PaymentService {
         }
         return null;
     }
-
+    
+    //db저장
     private Payment savePayment(Payment payment) {
         System.out.println("💾 [Service] DB 저장 시도");
         paymentMapper.insertPayment(payment);
