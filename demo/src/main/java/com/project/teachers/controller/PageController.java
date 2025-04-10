@@ -52,4 +52,13 @@ public class PageController {
 			 return "payment/payment"; 
 		 }
 
-}
+			@GetMapping("/su")
+			public String successPage() {
+			    return "payment/success";
+			}
+			
+			@GetMapping("/fa")
+			public String failPage() {
+			    return "payment/fail";
+			}
+	}

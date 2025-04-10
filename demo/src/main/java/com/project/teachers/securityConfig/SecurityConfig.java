@@ -42,7 +42,7 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 		// 접근 권한 설정
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
 		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify").permitAll()
@@ -56,7 +56,8 @@ public class SecurityConfig {
 		//구글 로그인
 		.oauth2Login(oauth2 -> oauth2
 	            .loginPage("/login") // 사용자 지정 로그인 페이지 (index.jsp로 연결해도 됨)
-	            .defaultSuccessUrl("/") // 로그인 성공 후 리디렉션 경로
+	            //.defaultSuccessUrl("/") // 로그인 성공 후 리디렉션 경로
+	            .defaultSuccessUrl("/su.jsp", true) // 성공 후 su.jsp로 리디렉션
 	            )
 		
 		
@@ -73,6 +74,7 @@ public class SecurityConfig {
 				.passwordParameter("pwd")
 				// 로그인 성공 시 실행할 핸들러 
 				.successHandler(authenticationSuccessHandler())
+				//.defaultSuccessUrl("/su", true)
 				.permitAll()
 				)
 		// 로그아웃 설정 
@@ -134,7 +136,7 @@ public class SecurityConfig {
 					// 로그인 성공 후 / 로 리다이렉트
 					response.sendRedirect(request.getContextPath()+"/");
 					
-					//super.onAuthenticationSuccess(request, response, authentication); 원래는 있었는데 무한루프 가능성
+					//super.onAuthenticationSuccess(request, response, authentication); //원래는 있었는데 무한루프 가능성
 			}
 		};
 		

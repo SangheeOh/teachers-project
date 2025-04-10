@@ -90,10 +90,11 @@
                     })
                 });
                 const result = await response.text();
-                window.location.href = result.includes("success") ? "/payment/success" : "/payment/fail";
+                //window.location.href = result.includes("success") ? "/su" : "/fa";
+                window.location.href = "/su";
             } else {
                 alert("결제 실패: " + rsp.error_msg);
-                window.location.href = "/payment/fail";
+                window.location.href = "/fa";
             }
         });
     }
