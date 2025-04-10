@@ -150,6 +150,21 @@
     <artifactId>json</artifactId>
     <version>20240303</version> <!-- 2025년 기준 최신 -->
 	</dependency>
+	
+	
+	<!-- JSON 파서 -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+</dependency>
+
+<!-- JSON 어노테이션 지원 -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+</dependency>
+	
+	
 
 	</dependencies>
 
