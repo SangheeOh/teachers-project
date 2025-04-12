@@ -13,7 +13,8 @@ public class User {
     private String phone;
     private Timestamp createdate;
     private String status;
-    private String role;
+   
+    private String role;  //enum 사용x
 
     // 기본 생성자
     public User() {}

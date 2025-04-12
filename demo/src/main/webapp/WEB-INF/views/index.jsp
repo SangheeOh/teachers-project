@@ -25,6 +25,10 @@
 <body>
 
 <br><br><br><br><br>
+<!-- selectall 버튼 추가함  -->
+<a href="trainer">trainer</a>
+<br><br><br><br>
+
 <!-- 결제 api 버튼 추가함  -->
 <a href="payment">결제 api !!!!!!</a>
 <br><br><br><br>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,13 @@
 <% 
     } 
 %>
+
+<c:if test="${registerSuccess}">
+    <script>alert('회원가입 성공!');</script>
+</c:if>
+<c:if test="${registerSuccess == false}">
+    <script>alert('회원가입 실패!');</script>
+</c:if>
 				
 			<!-- localhost:8080/login으로 username, password 넘어감 -->
 			<form action="${pageContext.request.contextPath}/login" method="post">
