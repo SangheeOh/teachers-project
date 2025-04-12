@@ -51,14 +51,23 @@ public class PageController {
 		 public String paymentPage() {
 			 return "payment/payment"; 
 		 }
-
-			@GetMapping("/su")
-			public String successPage() {
-			    return "payment/success";
-			}
+		
+		
+		//강사 검색
+		@GetMapping("/trainer")
+		public String selectallPage() {
+			return "trainer/selectall"; 
+		}
+		
+		//성공
+		@GetMapping("/su")
+		public String successPage() {
+			   return "payment/success";
+		}
 			
-			@GetMapping("/fa")
-			public String failPage() {
-			    return "payment/fail";
-			}
+		//실패
+		@GetMapping("/fa")
+		public String failPage() {
+			   return "payment/fail";
+		}
 	}

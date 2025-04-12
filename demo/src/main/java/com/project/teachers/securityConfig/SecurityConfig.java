@@ -42,10 +42,10 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 		// 접근 권한 설정
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
-		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify").permitAll()
+		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify","/search").permitAll()
 		.requestMatchers("/resources/**","/WEB-INF/**").permitAll()
 		// noticeAdd, noticeModifyPage는 admin, manager 일 때만 접근 가능
 		.requestMatchers("/noticeAdd","/noticeModifyPage").hasAnyAuthority("MEMBER","TRAINER")
@@ -57,7 +57,7 @@ public class SecurityConfig {
 		.oauth2Login(oauth2 -> oauth2
 	            .loginPage("/login") // 사용자 지정 로그인 페이지 (index.jsp로 연결해도 됨)
 	            //.defaultSuccessUrl("/") // 로그인 성공 후 리디렉션 경로
-	            .defaultSuccessUrl("/su.jsp", true) // 성공 후 su.jsp로 리디렉션
+	            .defaultSuccessUrl("/su", true) // 성공 후 su.jsp로 리디렉션
 	            )
 		
 		
