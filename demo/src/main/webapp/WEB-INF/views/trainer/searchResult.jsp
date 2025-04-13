@@ -224,78 +224,35 @@
             <div class="experts">
                 <c:forEach var="trainer" items="${trainers}" varStatus="status">
                     <c:if test="${status.index < 6}">
-                        <div class="expert-card">
-                            <c:choose>
-							  <c:when test="${not empty trainer.profileImg}">
-							    <img src="<c:url value='${trainer.profileImg}'/>" alt="트레이너">
-							  </c:when>
-							  <c:otherwise>
-							    <img src="<c:url value='/images/default-trainer.png'/>" alt="트레이너">
-							  </c:otherwise>
-							</c:choose>
-                            
-                            <span class="badge">${trainer.speciality}</span>
-                            <div class="expert-title">${trainer.subject}</div>
-                            <div class="tags">${trainer.gender} · ${trainer.town} · ${trainer.content}</div>
+                        <div class="expert-card">    
+                            <a href="${pageContext.request.contextPath}/trainerdetails?trainerNo=${trainer.trainerNo}" class="expert-card">
+	                            <c:choose>
+								  <c:when test="${not empty trainer.profileImg}">
+								    <img src="<c:url value='${trainer.profileImg}'/>" alt="트레이너">
+								  </c:when>
+								  <c:otherwise>
+								    <img src="<c:url value='/images/default-trainer.png'/>" alt="트레이너">
+								  </c:otherwise>
+								</c:choose>
+	                            <span class="badge">${trainer.speciality}</span>
+	                            <div class="expert-title">${trainer.subject}</div>
+	                            <div class="tags">${trainer.gender} · ${trainer.town} · ${trainer.content}</div>
+                            </a>
                         </div>
                     </c:if>
                 </c:forEach>
             </div>
         </c:when>
-    
             <c:otherwise>
-		    <div class="experts" style="display: grid;">
-		        	<div class="expert-card">
-                <span class="badge">최우수</span>
-                <a href="profile.jsp?trainerId=1">
-                    <img src="https://images.pexels.com/photos/8411309/pexels-photo-8411309.jpeg" alt="강사1">
-                </a>
-                <div class="expert-title">클래식 요가, 아쉬탕가 요가 프로그램</div>
-                <div class="tags">#요가 #체형교정 #생활통증 완화</div>
-            </div>
-            <div class="expert-card">
-                <span class="badge">우수</span>
-                <a href="profile.jsp?trainerId=2">
-                    <img src="https://images.pexels.com/photos/3763879/pexels-photo-3763879.jpeg" alt="강사2">
-                </a>
-                <div class="expert-title">체력 끌어올리는 근력 강화 웨이트</div>
-                <div class="tags">#웨이트 #체력강화 #다이어트</div>
-            </div>
-            <div class="expert-card">
-                <span class="badge">추천</span>
-                <a href="profile.jsp?trainerId=3">
-                    <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg" alt="강사3">
-                </a>
-                <div class="expert-title">밸런스를 잡아주는 필라테스</div>
-                <div class="tags">#필라테스 #체형교정 #건강유지</div>
-            </div>
-            <div class="expert-card">
-                <span class="badge">추천</span>
-                <a href="profile.jsp?trainerId=4">
-                    <img src="https://images.pexels.com/photos/8978177/pexels-photo-8978177.jpeg" alt="강사4">
-                </a>
-                <div class="expert-title">다이어트 맞춤형 PT 프로그램</div>
-                <div class="tags">#PT #식단관리 #다이어트</div>
-            </div>
-            <div class="expert-card">
-                <span class="badge">우수</span>
-                <a href="profile.jsp?trainerId=5">
-                    <img src="https://images.pexels.com/photos/7671947/pexels-photo-7671947.jpeg" alt="강사5">
-                </a>
-                <div class="expert-title">산후 회복 필라테스</div>
-                <div class="tags">#산모운동 #필라테스 #회복</div>
-            </div>
-            <div class="expert-card">
-                <span class="badge">추천</span>
-                <a href="profile.jsp?trainerId=6">
-                    <img src="https://images.pexels.com/photos/3768914/pexels-photo-3768914.jpeg" alt="강사6">
-                </a>
-                <div class="expert-title">남성을 위한 코어 강화 프로그램</div>
-                <div class="tags">#맨즈PT #코어강화 #체력증진</div>
-            </div>
-		    </div>
+		        <div style="margin-top: 60px; text-align: center;">
+		            <div style="font-size: 32px; color: #7A5FFF; font-weight: bold;">
+		                😥 해당하는 강사가 없습니다!
+		            </div>
+		            <div style="font-size: 18px; color: #888; margin-top: 10px;">
+		                필터 조건을 다시 선택해 보세요.
+		            </div>
+       			 </div>
 		</c:otherwise>
-
     </c:choose>
 </div>
 </body>

@@ -23,17 +23,18 @@ public class TrainerSqlProvider {
         // 2. SQL 쿼리 빌드
         StringBuilder sql = new StringBuilder();
 
+        // snake_case 컬럼들에 AS 작업을 해야 Trainer.java 필드와 정확히 매핑 (아니면 PROPERTIES 설정하면됨)
         sql.append("SELECT ");
-        sql.append("trainer_no, ");
-        sql.append("user_no, ");
+        sql.append("trainer_no AS trainerNo, ");
+        sql.append("user_no As userNo, ");
         sql.append("speciality, ");
         sql.append("experience, ");
         sql.append("gender, ");
         sql.append("city, ");
         sql.append("district, ");
         sql.append("town, ");
-        sql.append("days_available, ");
-        sql.append("time_slot, ");
+        sql.append("days_available As daysAvailable, ");
+        sql.append("time_slot As timeSlot, ");
         sql.append("afternoon, ");
         sql.append("subject, ");
         sql.append("content, ");

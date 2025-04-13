@@ -4,6 +4,9 @@ public class Trainer {
 
     private int trainerNo;
     private int userNo;
+    
+    private String name; //user table에서 조인한 필드
+    
     private String speciality;
     private String experience;
     private String gender;
@@ -37,8 +40,16 @@ public class Trainer {
     public void setUserNo(int userNo) {
         this.userNo = userNo;
     }
+    
+    public String getName() {
+		return name;
+	}
 
-    public String getSpeciality() {
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSpeciality() {
         return speciality;
     }
 
@@ -141,4 +152,25 @@ public class Trainer {
     public void setCreatedate(String createdate) {
         this.createdate = createdate;
     }
+    
+    @Override
+    public String toString() {
+        return "Trainer{" +
+                "trainerNo=" + trainerNo +
+                ", userNo=" + userNo +
+                ", speciality='" + speciality + '\'' +
+                ", experience='" + experience + '\'' +
+                ", gender='" + gender + '\'' +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", town='" + town + '\'' +
+                ", daysAvailable='" + daysAvailable + '\'' +
+                ", timeSlot='" + timeSlot + '\'' +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                ", profileImg='" + profileImg + '\'' +
+                ", createdate=" + createdate +
+                '}';
+    }
+    
 }
