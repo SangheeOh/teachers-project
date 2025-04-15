@@ -17,7 +17,7 @@ import com.project.teachers.entity.User;
 public class PageController {
 	
 	
-	// 페이지를 조회,이동할 때 getMapping 사용
+		// 페이지를 조회,이동할 때 getMapping 사용
 		@GetMapping("/")
 		public String home() {
 			return "index";
@@ -59,13 +59,13 @@ public class PageController {
 			return "trainer/selectall"; 
 		}
 		
-		//성공
+		//성공페이지
 		@GetMapping("/su")
 		public String successPage() {
 			   return "payment/success";
 		}
 			
-		//실패
+		//실패페이지
 		@GetMapping("/fa")
 		public String failPage() {
 			   return "payment/fail";
