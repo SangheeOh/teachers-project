@@ -1,0 +1,62 @@
+/* reset.css */
+
+/* 박스 모델 일관성 유지 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+  /* 기본 글꼴과 부드러운 스크롤 */
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+  
+  /* 기본 폰트 및 색상 */
+  body {
+    font-family: 'Pretendard-Regular', sans-serif;
+    line-height: 1.5;
+    color: #333;
+    /* background-color: #fff; */
+  }
+  
+  /* 리스트 스타일 제거 */
+  ul, ol {
+    list-style: none;
+  }
+  
+  /* 링크 스타일 초기화 */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* 이미지 반응형 설정 */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* 기본 버튼 스타일 제거 */
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 입력 요소 기본 스타일 정리 */
+  input, textarea, button {
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+  }
+  

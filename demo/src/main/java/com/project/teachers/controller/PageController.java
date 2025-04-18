@@ -20,7 +20,13 @@ public class PageController {
 		// 페이지를 조회,이동할 때 getMapping 사용
 		@GetMapping("/")
 		public String home() {
-			return "index";
+			return "main";
+		}
+		
+		// 페이지를 조회,이동할 때 getMapping 사용
+		@GetMapping("/gologin")
+		public String login() {
+			return "login/index";
 		}
 		
 		// 로그인 페이지

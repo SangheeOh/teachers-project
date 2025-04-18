@@ -1,0 +1,46 @@
+/* animations.css */
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* 슬라이드 업 애니메이션 */
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .slide-up {
+    animation: slideUp 1s ease-in-out;
+  }
+  
+  /* 회전 애니메이션 */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+  

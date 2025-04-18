@@ -23,7 +23,7 @@ public class MainController {
 	
 	@GetMapping("/")
 	 public String first() {
-		 return "index"; 
+		 return "test"; 
 	 }
 	
 	@GetMapping("/insert.me")

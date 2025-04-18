@@ -42,7 +42,7 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 		// 접근 권한 설정
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails","/gologin")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
 		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify","/search").permitAll()
@@ -134,7 +134,7 @@ public class SecurityConfig {
 					session.setAttribute("name", name);  // JSP에서 id 아닌 name으로 alert 띄우기 위해 세션에 name 저장
 					
 					// 로그인 성공 후 / 로 리다이렉트
-					response.sendRedirect(request.getContextPath()+"/");
+					response.sendRedirect(request.getContextPath()+"/gologin");
 					
 					//super.onAuthenticationSuccess(request, response, authentication); //원래는 있었는데 무한루프 가능성
 			}
