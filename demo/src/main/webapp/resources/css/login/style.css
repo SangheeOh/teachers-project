@@ -1,77 +1,91 @@
-/* 로그인 화면 css */
-*{
-	margin:0;
-	padding:0;	
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8f5fc;
+    margin: 0;
+    padding: 0;
 }
 
-#login-container-wrapper{
-	display: flex;
-	align-items: center;
-	justify-content:center;
-	height:90vh;
-}
- 
-#login-container{
-	background-color:white;
-	padding:40px;
-	border-radius:10px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	width: 300px;
-	text-align:center;
+#login-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    padding-top: 30px;
 }
 
-h2{
-	margin-bottom:20px;
-	font-size:24px;
-	color:#333;
+#login-container {
+    background-color: white;
+    padding: 40px 50px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(100, 0, 200, 0.1);
+    width: 400px;
+    text-align: center;
 }
 
-.input-group{
-	margin-bottom:15px;
-	text-align:left;	
+#login-container h2 {
+    color: #6a0dad;
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 24px;
 }
 
-.input-group label{
-	display:block;
-	font-size:14px;
-	margin-bottom:5px;
-	margin-top:5px;
-	color:#333;
-}
-.input-group input{
-	width:100%;
-	padding:10px;
-	font-size:14px;
-	border:1px solid #ddd;
-	border-radius:5px;
-	box-sizing:border-box;
-}
-#login-button{
-	width:100%;
-	padding:10px;
-	background-color:#333;
-	color:white;
-	border:none;
-	border-radius:5px;
-	font-size:16px;
-	cursor:pointer;
-	margin-top:20px;
-	margin-bottom:20px;
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
 }
 
-/* 버튼 위에 마우스 댔을 때 색 연해 */
-#login-button:hover{
-	background-color:#555;
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #333;
 }
 
-#register-link a{
-	color: #333;
-	text-decoration:none;
-	font-size:14px;
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
-#register-link a:hover{
-	text-decoration:underline;
+#login-button {
+    width: 100%;
+    background-color: #7c4dff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 8px;
 }
 
+#login-button:hover {
+    background-color: #6a1b9a;
+}
 
+#register-link {
+    margin-top: 20px;
+}
+
+#register-link a {
+    color: #6a0dad;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+#register-link a:hover {
+    text-decoration: underline;
+}
+
+img {
+    margin-top: 15px;
+    width: 100%;
+    max-width: 220px;
+    cursor: pointer;
+}

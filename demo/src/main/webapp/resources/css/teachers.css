@@ -1,0 +1,353 @@
+
+:root {
+    --primary-color: #8A58FF;
+    --primary-color-hoverd: #6C03FF;
+    --bg-color: #f5f1ff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ul, ol {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+button, input, textarea, select {
+    font: inherit;
+    border: none;
+    background: none;
+}
+button {
+    cursor: pointer;
+}
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-color);
+    font-family: 'SUIT-Regular', sans-serif;
+}
+header{
+    width: 100%;
+    height: 64px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 8px 0px #00000005;
+    z-index: 50;
+    position: fixed;
+}
+.header-wr{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1280px;
+    width: 100%;
+}
+.header-wr > div{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+.header-wr a span{
+    padding: 20px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-wr a:has(img){
+    margin-right: 20px;
+}
+.header-wr a img{
+    height: 32px;
+}
+.header-wr a:has(button){
+    margin-left: 20px;
+}
+.header-wr a span:hover{
+    font-weight: 600;
+    color: var(--primary-color);
+    transition: color 0.4s ease;
+    position: relative;
+}
+.header-wr a span::after{
+    content: '';
+    display: inline-block;
+    width: 0%;
+    height: 3px;
+    background-color: var(--primary-color);
+    position: absolute;
+    bottom: 0;
+    border-radius: 12px;
+    transition: width 1s ease;
+    opacity: 0;
+}
+.header-wr a span:hover::after{
+    width: 80%;
+    opacity: 1;
+}
+.header-wr > div:nth-child(2) span{
+    color: #777777;
+}
+.btn-primary{
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 8px;
+}
+.header-wr a button {
+    padding: 8px 16px;
+}
+.btn-primary:hover {
+    background-color: var(--primary-color-hoverd);
+    transition: all 0.6s ease;
+}
+.mySwiper {
+    width: 100%;
+    height: 600px;
+    border-radius: 20px;
+}
+.mySwiper2 {
+    width: 100%;
+    height: 480px;
+    width: 1280px;
+}
+.mySwiper2 .swiper-slide img{
+    height: 100%;
+    object-fit: cover;
+}
+.mySwiper2 .swiper-slide{
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+}
+.mySwiper2 .swiper-slide > div{
+    position: absolute;
+    bottom: 0;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 28px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    background: linear-gradient(to top, black, transparent);
+}
+.mySwiper2 .swiper-slide > div p{
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.mySwiper2 .swiper-slide > div span{
+    padding: 6px 20px;
+    background-color: var(--primary-color);
+    border-radius: 999px;
+}
+.slide-text {
+    position: absolute;
+    z-index: 2;
+    color: #555;
+    top: 120px;
+    left: 180px;
+    font-weight: 400;
+    font-size: 24px;
+}
+.slide-text p:first-child {
+    font-size: 40px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0px;
+}
+.slide-text p span {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+.swiper-button-prev, .swiper-button-next {
+    color: var(--primary-color) !important;
+    margin: 0 60px !important;
+}
+.swiper-pagination-bullet-active {
+    background-color: var(--primary-color) !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 48px !important;
+    font-weight: 900;
+}
+.swiper-horizontal>.swiper-pagination-bullets {
+    bottom: 20px !important;
+}
+.swiper-pagination-bullet {
+    width: 12px !important;
+    height: 12px !important;
+}
+main{
+    padding: 120px 0 120px;
+}
+section{
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+.start-btn{
+    position: absolute;
+    z-index: 2;
+    bottom: 120px;
+    left: 180px;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 12px 140px;
+    border-radius: 12px;
+    transition: background-color 1s ease;
+}
+.start-btn button{
+    color: #fff;
+}
+.icon-area{
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+}
+.icon-area > a{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    gap: 12px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 0 8px 12px #8a58ff1a;
+    background-color: #fff;
+    /* border: 1px solid #8a58ff80; */
+    width: 32%;
+    transition: all 1s ease;
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.icon-area > a:hover{
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-size: 24px;
+    transition: all 1s ease;
+}
+ .icon-area > a:hover {
+    background-color: #c5b3ed;
+    /* color: #ffffff; */
+    /* font-size: 25px; */
+    transition: all 1s ease;
+}
+.icon-area > a img {
+    width: 48px;
+    transition: all 0.6s ease;
+}
+.icon-area > a:hover img{
+    width: 0;
+    height: 0;
+    transition: all 1s ease;
+ }
+.ico-map::before{
+    content: '';
+    display: inline-block;
+    background-image: url('../assets/images/teachers/ico-map.png');
+    width: 24px;
+    height: 24px;
+}
+.hot-area .title-wr{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    
+}
+.hot-area .title-wr > div{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.hot-area{
+    margin-top: 160px;
+}
+.hot-area .title{
+    font-size: 32px;
+    font-weight: 600;
+}
+.hot-area .title-wr button{
+    display: flex;
+    gap: 4px;
+    padding: 8px 24px 8px 16px;
+    background-color: #fff;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+}
+.main-banner{
+    width: 100%;
+    position: relative;
+    margin: 160px 0;
+    background: url(../assets/images/teachers/main-bg.png);
+    height: 640px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-size: cover;
+    color: #ffffff;
+}
+.main-banner img{
+    height: 140px;
+}
+.title-wr .right-area span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px;
+    border-bottom: 1px solid var(--bg-color);
+    transition: all 0.6s ease;
+}
+.title-wr .right-area span:hover{
+    color: var(--primary-color);
+    transition: all 0.6s ease;
+    text-shadow: 0px 0px 1px var(--primary-color);
+}
+.card-list-wrapper{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px 20px;
+}
+.card-list-wrapper .card{
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 1 / 1.4;
+}
+.card-list-wrapper .card img{
+    width: 100%;
+    aspect-ratio: 1 / 1.4;
+    object-fit: cover;
+    border-radius: 12px;
+    overflow: hidden;
+}

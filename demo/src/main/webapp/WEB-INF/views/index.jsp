@@ -20,35 +20,9 @@
 <meta name="-csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
 
-<title>Insert title here</title>
+<title>Login page</title>
 </head>
 <body>
-
-<br><br><br><br><br>
-<!-- selectall 버튼 추가함  -->
-<a href="trainer">trainer</a>
-<br><br><br><br>
-
-<!-- 결제 api 버튼 추가함  -->
-<a href="payment">결제 api !!!!!!</a>
-<br><br><br><br>
-
-
-<!-- 연습용, 추후 수정 예정 -->
-<a href="usertest.me">로그인 구현_조회하기(USER TABLE)</a>
-<br><br><br><br>
-
-
-<a href="insert.me">DB INSERT(Menu테이블_test용)</a>
-<br><br><br><br>
-
-
-<a href="select.me">SELECT 조회하기(Menu테이블_test용)</a>
-<br><br><br><br>
-
-
-<!--헤더의 내용이 다 들어감-->
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 	<div id="container">
 		<div id="menuAdmin">
@@ -106,11 +80,6 @@
 			</div>
 		</div>
 	</div>
-	
-
-<!--푸터의 내용이 다 들어감-->	
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
-
 
 </body>
 </html>

@@ -268,7 +268,7 @@
     </div>
 
     <!-- 예약 및 결제 버튼 -->
-    <a href="payment.jsp" class="reserve-btn">예약하기</a>
+    <a href="payment" class="reserve-btn">예약하기</a>
 </div>
 
 <script>

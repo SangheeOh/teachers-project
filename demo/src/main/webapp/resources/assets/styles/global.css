@@ -1,0 +1,19 @@
+/*폰트*/
+
+.font-48{
+    font-size: 48px;
+    font-weight: 600;
+}
+.font-32{
+    font-size: 32px;
+}
+
+/*마진*/
+.mt-40{
+    margin-top: 40px;
+}
+
+/*넓이*/
+.w400{
+    width: 400px;
+}
