@@ -17,6 +17,7 @@ import com.project.teachers.service.MenuService;
 @Controller
 public class MainController {
 
+	//삭제예정
 	/*  내가 작업한건데 카네즈 test를 위해서 원래 이 페이지가 메인임 
 	@Autowired
 	private MenuService menuService;
