@@ -24,6 +24,7 @@
 </head>
 <body>
 
+<!-- main.jsp 변경됨 -->
 	<div id="container">
 		<div id="menuAdmin">
 			<h2 id="menuAdminH2">로그인/로그아웃/회원가입</h2>
