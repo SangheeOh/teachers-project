@@ -39,7 +39,7 @@ public class UserController {
 			
 			 return "select"; 
 		 }
-		
+
 		
 		@PostMapping("/register")
 		public String register(@ModelAttribute User user, HttpServletRequest request) {
@@ -52,6 +52,9 @@ public class UserController {
 
 		    //선택된 role을 User 객체에 직접 설정
 		    user.setRole(selectedRole);  // enum 안 쓰고 그대로 문자열 저장
+		    
+		    //기본적으로는 LOCAL로 처리 (GOOGLE 로그인과 분리)
+		    user.setLogin_type("LOCAL");
 
 		    //패스워드 암호화
 		    String userPassword = user.getPwd();
