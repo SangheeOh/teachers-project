@@ -4,22 +4,21 @@ import java.sql.Timestamp;
 
 public class User {
 
-
     private int user_no;
-	private String id;
-    private String pwd;
+    private String id;
+    private String pwd; // 구글 로그인 사용자는 NULL 가능
     private String name;
     private String email;
     private String phone;
     private Timestamp createdate;
-    private String status;
-   
-    private String role;  //enum 사용x
+    private String status;      // 'Y' or 'N'
+    private String role;        // 'member', 'trainer', 'admin'
+    private String login_type;  // 'LOCAL' or 'GOOGLE'
 
     // 기본 생성자
     public User() {}
 
-    // Getter 및 Setter 작성
+    // Getter & Setter
     public int getUser_no() {
         return user_no;
     }
@@ -90,5 +89,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getLogin_type() {
+        return login_type;
+    }
+
+    public void setLogin_type(String login_type) {
+        this.login_type = login_type;
     }
 }

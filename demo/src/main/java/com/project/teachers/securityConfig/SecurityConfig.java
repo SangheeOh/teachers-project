@@ -39,8 +39,10 @@ public class SecurityConfig {
 		// CORS 설정(특정 서버에서만 데이터를 주고 받음)
 		.cors(cors -> cors.configurationSource(corsCorsfigurationSource()))
 		// 세션 필요할 때만 생
-		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-		// 접근 권한 설정
+		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+		// 동일 계정으로 중복 로그인 불가 설정
+		.maximumSessions(1)
+		.maxSessionsPreventsLogin(true))
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
 		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails","/gologin")
 		.permitAll()

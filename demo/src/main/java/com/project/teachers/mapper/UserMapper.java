@@ -17,8 +17,8 @@ public interface UserMapper {
 	 ArrayList<User> selectUser();
 	
 	//회원가입
-	@Insert("INSERT INTO teachers_db.user(id, pwd, name, email, phone, role)"
-	        + " VALUES(#{id}, #{pwd}, #{name}, #{email}, #{phone}, #{role})")
+	@Insert("INSERT INTO teachers_db.user(id, pwd, name, email, phone, role, login_type)"
+	        + " VALUES(#{id}, #{pwd}, #{name}, #{email}, #{phone}, #{role}, #{login_type})")
 			void insertUser(User user); // 사용 함수
 	
 	// read
@@ -27,6 +27,10 @@ public interface UserMapper {
 	 
 	@Select("SELECT name FROM teachers_db.user WHERE id=#{id}")
 	String findWriter(String id); // writer 가져옴
+	
+	// 이메일로 사용자 찾기
+    @Select("SELECT * FROM teachers_db.user WHERE email=#{email}")
+    User findByEmail(String email); // 이메일로 사용자 찾기
 	
 //	@Update()
 //	@Delete()

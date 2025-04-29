@@ -42,10 +42,10 @@
 %>
 
 <c:if test="${registerSuccess}">
-    <script>alert('회원가입 성공습니다!');</script>
+    <script>alert('회원가입 성공했습니다!');</script>
 </c:if>
 <c:if test="${registerSuccess == false}">
-    <script>alert('회원가입 실패했습니다!');</script>
+    <script>alert('회원가입 실패했습니다. 다시 해주세요');</script>
 </c:if>
 				
 			<!-- ///// 로그인 안 된 상태면 로그인 버튼들(일반, Google) 보이기 /////-->	
