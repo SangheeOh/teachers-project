@@ -41,6 +41,13 @@
     } 
 %>
 
+<!-- ✅ 중복 로그인 시 메시지 -->
+<c:if test="${param.duplicate eq 'true'}">
+  <div class="error-msg" style="color:red;">현재 로그인 상태입니다! 로그아웃 후 다시 로그인해주세요.</div>
+</c:if>
+
+
+<!-- ✅ 회원가입 메시지 -->
 <c:if test="${registerSuccess}">
     <script>alert('회원가입 성공했습니다!');</script>
 </c:if>
@@ -68,31 +75,35 @@
 				<button type="submit" id="login-button">로그인</button>
 			</form>
 			
+			
 			<!-- 구글 로그인 버튼 -->
 			<a href="/oauth2/authorization/google">
 				<img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" />
 			</a>
 			
-			</sec:authorize>
+			</sec:authorize> 
 			
 			<br><br>
-			
+
 			<!-- ✅ (일반) 로그인한 경우에만 환영 팝업 띄우기 -->				
-			    <c:if test="${not empty sessionScope.name}">
+			<!-- ✅ 로그인 성공 후에만 환영 팝업 띄우기 (중복 로그인/에러는 제외) -->
+			<c:if test="${not empty sessionScope.name 
+			              && param.error ne 'true' 
+			              && param.duplicate ne 'true'}">
 			    <script>
-		        const currentUser = '${sessionScope.name}';
-		        const shownUser = sessionStorage.getItem('popupShownUser');
-		
-		        // 이 페이지가 어디서 왔는지 확인
-		        const from = document.referrer;
-		
-		        // 로그인 페이지에서 온 경우에만 팝업 보여주기
-		        if (from.includes('/gologin') && shownUser !== currentUser) {
-		            alert("😊 환영합니다, " + currentUser + "님!");
-		            sessionStorage.setItem('popupShownUser', currentUser);
-		        }
-		    	</script>
-				</c:if>
+			        const currentUser = '${sessionScope.name}';
+			        const shownUser = sessionStorage.getItem('popupShownUser');
+			
+			        const from = document.referrer;
+			
+			        // 로그인 페이지에서 온 경우만 팝업
+			        if (from.includes('/gologin') && shownUser !== currentUser) {
+			            alert("😊 환영합니다, " + currentUser + "님!");
+			            sessionStorage.setItem('popupShownUser', currentUser);
+			        }
+			    </script>
+			</c:if>
+
 			
 			<!-- 로그인한 상태면 로그아웃 버튼 하나만 보이도록 (일반, Google) -->
 	   		<sec:authorize access="isAuthenticated()">
