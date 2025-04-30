@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -60,6 +61,7 @@ public class SecurityConfig {
 	            .loginPage("/login") // 사용자 지정 로그인 페이지 (index.jsp로 연결해도 됨)
 	            //.defaultSuccessUrl("/") // 로그인 성공 후 리디렉션 경로
 	            .defaultSuccessUrl("/su", true) // 성공 후 su.jsp로 리디렉션
+	            .successHandler(authenticationSuccessHandler())  // 기존에 정의된 핸들러로 통일
 	            )
 		
 		
@@ -95,53 +97,51 @@ public class SecurityConfig {
 	// 로그인 성공 시 수행하는 핸들러
 	@Bean
 	public AuthenticationSuccessHandler authenticationSuccessHandler() {
-		return new SimpleUrlAuthenticationSuccessHandler() {
-			
-			@Override
-			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-					Authentication authentication) throws IOException, ServletException {
-					
-					// 세션 유지(로그인 유지)
-					HttpSession session = request.getSession(); 
-					
-					boolean isManager = authentication.getAuthorities().stream()
-							.anyMatch(grantedAuthoirity ->
-							grantedAuthoirity.getAuthority().equals("TRAINER") ||
-							grantedAuthoirity.getAuthority().equals("MEMBER"));
-					
-					// 운영진일 때 세션에 매니저 표시 
-					if(isManager) {
-						session.setAttribute("member", true);
-					}
-					
-					// 유저이름 저장 
-					session.setAttribute("id", authentication.getName());
-					session.setAttribute("isAuthenticated", true);
-					
-					//구글 로그인 관련
-					Object principal = authentication.getPrincipal();
-				    if (principal instanceof CustomUser customUser) {
-				        String name = customUser.getUser().getName();
-				        session.setAttribute("name", name);
-				    } else if (principal instanceof org.springframework.security.oauth2.core.user.OAuth2User oauth2User) {
-				        String name = oauth2User.getAttribute("name"); // or "email"
-				        session.setAttribute("name", name);
-				    }
-					
-					
-					
-					// CustomUser로부터 name을 꺼내서 세션에 저장
-					CustomUser customUser = (CustomUser) authentication.getPrincipal();
-					String name = customUser.getUser().getName();
-					session.setAttribute("name", name);  // JSP에서 id 아닌 name으로 alert 띄우기 위해 세션에 name 저장
-					
-					// 로그인 성공 후 / 로 리다이렉트
-					response.sendRedirect(request.getContextPath()+"/gologin");
-					
-					//super.onAuthenticationSuccess(request, response, authentication); //원래는 있었는데 무한루프 가능성
-			}
-		};
-		
+	    return new SimpleUrlAuthenticationSuccessHandler() {
+	        @Override
+	        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+	                                            Authentication authentication) throws IOException, ServletException {
+
+	            HttpSession session = request.getSession(false);
+
+	            // ✅ 이미 로그인된 경우 로그인 방식 비교
+	            if (session != null && session.getAttribute("loginType") != null) {
+	                String currentLoginType = session.getAttribute("loginType").toString();
+	                String newLoginType = (authentication.getPrincipal() instanceof OAuth2User) ? "GOOGLE" : "LOCAL";
+
+	                if (!currentLoginType.equals(newLoginType)) {
+	                    // 로그인 방식 다르면 중복 로그인 시도로 간주
+	                    response.sendRedirect(request.getContextPath() + "/loginPage?duplicate=true");
+	                    return;
+	                }
+	            }
+
+	            // 새로운 세션 확보
+	            session = request.getSession(true);
+
+	            // ✅ 로그인 방식 저장
+	            String loginType = (authentication.getPrincipal() instanceof OAuth2User) ? "GOOGLE" : "LOCAL";
+	            session.setAttribute("isAuthenticated", true);
+	            session.setAttribute("loginType", loginType);
+	            session.setAttribute("id", authentication.getName());
+
+	            Object principal = authentication.getPrincipal();
+	            if (principal instanceof CustomUser customUser) {
+	                session.setAttribute("name", customUser.getUser().getName());
+	            } else if (principal instanceof OAuth2User oauth2User) {
+	                session.setAttribute("id", oauth2User.getAttribute("email"));
+	                session.setAttribute("name", oauth2User.getAttribute("name"));
+	            }
+
+	            boolean isManager = authentication.getAuthorities().stream()
+	                    .anyMatch(auth -> auth.getAuthority().equals("TRAINER") || auth.getAuthority().equals("MEMBER"));
+	            if (isManager) {
+	                session.setAttribute("member", true);
+	            }
+
+	            response.sendRedirect(request.getContextPath() + "/gologin");
+	        }
+	    };
 	}
 	
 	@Bean
