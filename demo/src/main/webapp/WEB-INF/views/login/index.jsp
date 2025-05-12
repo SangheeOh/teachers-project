@@ -11,7 +11,7 @@
         && session.getAttribute("SPRING_SECURITY_CONTEXT") == null) {
         
         session.invalidate(); // 복원된 세션 무효화
-    }
+   }
 %>
 
 <!DOCTYPE html>
@@ -76,6 +76,7 @@
 			</form>
 			
 			
+			
 			<!-- 구글 로그인 버튼 -->
 			<a href="/oauth2/authorization/google">
 				<img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" />
@@ -103,6 +104,12 @@
 			        }
 			    </script>
 			</c:if>
+			
+			<!-- 로그인 시, sessionStorage 초기화 (팝업이 뜨지 않도록 초기화) -->
+			<script>
+    			// 로그인 시, sessionStorage 초기화 (팝업이 뜨지 않도록 초기화)
+    		sessionStorage.removeItem('popupShownUser');
+			</script>
 
 			
 			<!-- 로그인한 상태면 로그아웃 버튼 하나만 보이도록 (일반, Google) -->
