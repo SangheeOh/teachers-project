@@ -11,13 +11,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -28,6 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter.Directive;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +48,8 @@ public class SecurityConfig {
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 		// 동일 계정으로 중복 로그인 불가 설정
 		.maximumSessions(1)
-		.maxSessionsPreventsLogin(true))
+		.maxSessionsPreventsLogin(true)
+		.sessionRegistry(sessionRegistry()))  // ✅ 이 부분 꼭 필요
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
 		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails","/gologin")
 		.permitAll()
@@ -88,7 +94,15 @@ public class SecurityConfig {
 			// 자동 로그아웃 방지 기능 해제(세션 무효화, 쿠키 삭제)
 			.invalidateHttpSession(true)
 			.deleteCookies("JSESSIONID")
+			.addLogoutHandler((request, response, authentication) -> {
+		        if (authentication != null) {
+		            sessionRegistry().removeSessionInformation(request.getSession().getId()); // ✅ 세션 완전 제거
+		        }
+		    })
+		    .addLogoutHandler(new HeaderWriterLogoutHandler(
+		        new ClearSiteDataHeaderWriter(Directive.COOKIES, Directive.STORAGE, Directive.CACHE)))
 			.permitAll()
+			.clearAuthentication(true) // 인증 정보도 초기화
 			);
 		
 		return http.build();
@@ -169,5 +183,11 @@ public class SecurityConfig {
 		source.registerCorsConfiguration("/**", configuration);
 		
 		return source;
+	}
+	
+	// (중복 로그인 인식 위해)
+	@Bean
+	public SessionRegistry sessionRegistry() {
+	    return new SessionRegistryImpl();
 	}
 }
