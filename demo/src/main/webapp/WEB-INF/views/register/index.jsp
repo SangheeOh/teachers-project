@@ -130,6 +130,7 @@
                 <option value="">선택하세요</option>
                 <option value="member">일반 회원</option>
                 <option value="trainer">운동 전문가</option>
+                <option value="admin">관리자</option>
             </select>
         </div>
         <button type="submit" class="signup-btn">회원가입</button>

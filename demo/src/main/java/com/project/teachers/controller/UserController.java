@@ -17,6 +17,8 @@ import com.project.teachers.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class UserController {
@@ -42,7 +44,7 @@ public class UserController {
 
 		
 		@PostMapping("/register")
-		public String register(@ModelAttribute User user, HttpServletRequest request) {
+		public String register(@ModelAttribute User user, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 			
 			//@ModelAttribute User user에 JSP 폼의 name 값이 자동으로 매핑되기도 하지만, 
 			//select box는 잘 안 담기는 경우도 있으므로 request.getParameter("role")로 직접 받는 게 안정적
@@ -65,14 +67,14 @@ public class UserController {
 		    
 		    //성공, 실패 알림창
 		    try {
-		        userService.insertUser(user);  //유저정보 DB에 저장
-		        request.setAttribute("registerSuccess", true); //회원가입 성공, 실패 메시지를 model에 담고 loginPage.jsp로 forward
+		        userService.insertUser(user);  // 유저 정보 DB 저장
+		        redirectAttributes.addFlashAttribute("registerSuccess", true);
+		        return "redirect:/";
 		    } catch (Exception e) {
 		        e.printStackTrace();
-		        request.setAttribute("registerSuccess", false);
+		        request.setAttribute("registerSuccess", false); // 실패 시는 그대로 forward
+		        return "login/index";
 		    }
-		    
-		    return "login/index"; // forward
 		    
 		    //유저정보 DB에 저장
 		    //userService.insertUser(user);

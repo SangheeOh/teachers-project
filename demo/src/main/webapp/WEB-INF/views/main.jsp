@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -7,6 +10,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <!-- ✅ 로그인 상태일 때만 팝업 띄우기 -->
+    <sec:authorize access="isAuthenticated()">
+        <c:if test="${sessionScope.justLoggedIn eq true}">
+            <script>
+                alert("${sessionScope.name}님, 환영합니다!");
+            </script>
+            <c:remove var="justLoggedIn" scope="session" />
+        </c:if>
+    </sec:authorize>
+    
+    
+    <!-- css -->
     <link rel="stylesheet" href="../resources/css/teachers.css">
     <link rel="stylesheet" href="../resources/assets/styles/reset.css">
     <link rel="stylesheet" href="../resources/assets/styles/global.css">
@@ -14,17 +30,26 @@
     <link rel="stylesheet" href="../resources/assets/styles/animations.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    
+    <!-- js -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 </head>
 <body>
+
+	<!-- ✅ 회원가입 메시지 -->
+	<c:if test="${registerSuccess}">
+	        <script>alert('회원가입 성공했습니다! 로그인 해주세요.');</script>
+	</c:if>
+	<c:if test="${registerSuccess == false}">
+	        <script>alert('회원가입 실패했습니다. 다시 해주세요');</script>
+	</c:if>
+
+
     <header>
         <div class="header-wr">
             <div>
@@ -32,12 +57,31 @@
                 <a href="/"><span>전문가 찾기</span></a>
                 <a href="/"><span>커뮤니티</span></a>
             </div>
-            <div>
-                <a href="/gologin"><span>로그인</span></a>
-                <a href="/"><span>마이페이지</span></a>
-                <a href="/"><span>회원가입</span></a>
-                <a href="/"><button class="btn-primary">선생님 지원</button></a>
-            </div>
+            
+			<!-- 로그인 상태 분기 처리 -->
+			<sec:authorize access="isAuthenticated()">
+			    <div>
+			        <a href="/logout"><span>로그아웃</span></a>
+			        <a href="/mypage"><span>마이페이지</span></a>
+			        <a href="/apply"><button class="btn-primary">선생님 지원</button></a>
+			
+			        <!-- ✅ role이 admin인 경우만 관리자 버튼 노출 -->
+			        <c:if test="${sessionScope.role eq 'admin'}">
+			            <a href="/adminPage"><span class="btn-admin">관리자 페이지</span></a>
+			        </c:if>
+			    </div>
+			</sec:authorize>
+			
+			<!-- 비로그인 상태 -->
+			<sec:authorize access="!isAuthenticated()">
+			    <div>
+			        <a href="/gologin"><span>로그인</span></a>
+			        <a href="/registerPage"><span>회원가입</span></a>
+			        <a href="/mypage"><span>마이페이지</span></a>
+			        <a href="/apply"><button class="btn-primary">선생님 지원</button></a>
+			    </div>
+			</sec:authorize>
+            
         </div>
     </header>
     <main>
