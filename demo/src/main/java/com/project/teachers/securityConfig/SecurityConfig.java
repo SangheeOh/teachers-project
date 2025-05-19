@@ -138,13 +138,17 @@ public class SecurityConfig {
 	            session.setAttribute("isAuthenticated", true);
 	            session.setAttribute("loginType", loginType);
 	            session.setAttribute("id", authentication.getName());
+	            
+	            session.setAttribute("justLoggedIn", true); //main.jsp에서 팝업
 
 	            Object principal = authentication.getPrincipal();
 	            if (principal instanceof CustomUser customUser) {
 	                session.setAttribute("name", customUser.getUser().getName());
+	                session.setAttribute("role", customUser.getRole()); 
 	            } else if (principal instanceof OAuth2User oauth2User) {
 	                session.setAttribute("id", oauth2User.getAttribute("email"));
 	                session.setAttribute("name", oauth2User.getAttribute("name"));
+	                session.setAttribute("role", "member"); // OAuth2User는 기본적으로 'member' 권한이라고 가정
 	            }
 
 	            boolean isManager = authentication.getAuthorities().stream()
@@ -153,7 +157,8 @@ public class SecurityConfig {
 	                session.setAttribute("member", true);
 	            }
 
-	            response.sendRedirect(request.getContextPath() + "/gologin");
+	            //response.sendRedirect(request.getContextPath() + "/gologin");
+	            response.sendRedirect(request.getContextPath() + "/");
 	        }
 	    };
 	}

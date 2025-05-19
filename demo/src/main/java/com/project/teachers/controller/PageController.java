@@ -52,6 +52,14 @@ public class PageController {
 			return "register/index";
 		}	
 		
+		
+		// admin page 이동
+		@GetMapping("/adminPage")
+		public String adminPage() {
+			return "admin";
+		}
+		
+		
 		//결제요청 페이지
 		@GetMapping("/payment")
 		 public String paymentPage() {

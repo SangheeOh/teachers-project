@@ -13,9 +13,13 @@ public class CustomUser extends org.springframework.security.core.userdetails.Us
 		this.user = user; // 아래 getter 사용을 위해
 	}
 	
-	// id 말고 메인화면에서 name으로 팝업 띄우기 위해 getter 추가
+		// id 말고 메인화면에서 name으로 팝업 띄우기 위해 getter 추가
 		public User getUser() {
 			return user;
 		}
+		
+		 public String getRole() {
+		        return user.getRole(); // 내부 user에서 role 가져오기
+		 }
 	
 }
