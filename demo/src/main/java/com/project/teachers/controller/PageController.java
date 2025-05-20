@@ -59,6 +59,18 @@ public class PageController {
 			return "admin";
 		}
 		
+		// mypage 이동
+		@GetMapping("/mypage")
+		public String mypage() {
+			return "mypage";
+		}
+		
+		// reviewlist 이동
+		@GetMapping("/reviewlist")
+		public String reviewlist() {
+			return "reviewlist";
+		}
+		
 		
 		//결제요청 페이지
 		@GetMapping("/payment")

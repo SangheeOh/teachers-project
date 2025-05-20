@@ -11,15 +11,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-    padding-top: 30px;
+	height: 100vh; /* 전체 화면 세로 기준 정중앙 */
+  	flex-direction: column;
 }
 
 #login-container {
     background-color: white;
     padding: 40px 50px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(100, 0, 200, 0.1);
+    box-shadow: 0 8px 20px rgba(100, 0, 200, 0.2);
     width: 400px;
     text-align: center;
 }
@@ -32,7 +32,7 @@ body {
 }
 
 .input-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
@@ -48,13 +48,13 @@ body {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
 #login-button {
     width: 100%;
-    background-color: #7c4dff;
+    background-color:#6a1b9a;
     color: white;
     border: none;
     padding: 12px;
@@ -63,10 +63,17 @@ body {
     font-size: 16px;
     transition: background-color 0.3s;
     margin-top: 8px;
+    margin-bottom: 15px; /* 구글 로그인 버튼과 간격 */
 }
 
 #login-button:hover {
     background-color: #6a1b9a;
+}
+
+/* 아이디 저장 텍스트 */
+#remember + label {
+    color: #555;
+    font-weight: 500;
 }
 
 #register-link {
@@ -88,4 +95,14 @@ img {
     width: 100%;
     max-width: 220px;
     cursor: pointer;
+}
+
+/* 회색 링크 스타일 (비밀번호 찾기, 아이디 찾기, 회원가입) */
+#login-container a {
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+}
+#login-container a:hover {
+    text-decoration: underline;
 }

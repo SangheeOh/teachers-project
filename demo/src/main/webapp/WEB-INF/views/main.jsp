@@ -54,8 +54,8 @@
         <div class="header-wr">
             <div>
                 <a  href="/"><img src="../resources/assets/images/teachers/logo3.png"></a>
-                <a href="/"><span>전문가 찾기</span></a>
-                <a href="/"><span>커뮤니티</span></a>
+                <a href="/trainer"><span>전문가 찾기</span></a>
+                <a href="/reviewlist"><span>커뮤니티</span></a>
             </div>
             
 			<!-- 로그인 상태 분기 처리 -->

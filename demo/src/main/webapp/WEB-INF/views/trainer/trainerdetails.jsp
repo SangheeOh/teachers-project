@@ -14,12 +14,13 @@
             background: #f2f0f9;
         }
         .container {
-            max-width: 960px;
-            margin: 50px auto;
+            max-width: 1000px;
+            margin: 0px auto;
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            padding: 40px 50px 70px;
+            padding: 0px 50px 70px;
+            position: relative; /* 추가 가능 */
         }
         .profile-header {
             display: flex;
@@ -147,10 +148,43 @@
         .reserve-btn:hover {
             background: #4a1760;
         }
+        
+        .available {
+        background-color: #d6ecff;
+        font-weight: bold;
+        cursor: pointer; /* 마우스 커서 손모양 */
+        transition: background 0.2s;
+    }
+    .available.selected {
+        background-color: #8dc3ff; /* 선택된 경우 진한 파랑 */
+    }
+.banner-bar {
+    background-color: #000;      /* 완전한 검정색 */
+    width: 100%;                 /* container 가로 꽉 채움 */
+    height: 60px;                /* 약간 더 굵게 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.banner-bar img {
+    height: 40px; /* 로고 크게 보이게 */
+    margin-left: 20px; /* 로고와 왼쪽 간격 */
+}
     </style>
 </head>
 <body>
+
 <div class="container">
+
+        <!-- ✅ 배너: 강사 프로필 바로 위에 위치 -->
+    <div class="banner-bar">
+        <a href="/main.jsp">
+            <img src="${pageContext.request.contextPath}/resources/assets/images/teachers/logo3.png" alt="Teachers 로고">
+        </a>
+    </div>
+
+<br>
     <div class="profile-header">
        <!-- defalt 이미지 <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=250&q=80" alt="전문가 사진">-->
 		<c:choose>
@@ -191,6 +225,11 @@
 				<c:out value="[요일] : ${trainerdetails.daysAvailable} -----  [시간] : ${trainerdetails.timeSlot}시" default="월~금 오전 10시 ~ 오후 6시"/>
             </div>
         </div>
+        
+        <div style="font-size: 18px; font-weight: bold; color: #4a1760; text-align: center; margin: 30px 0 10px;">
+    	아래 시간대에 수업이 가능합니다.<br/>
+   		회원님께서 정기적으로 수업이 가능한 시간대를 선택하여 예약해주세요.
+		</div>
 
         <!-- 해당 요일, 시간대 바둑판으로 표시 -->
         <div class="timetable">
@@ -279,6 +318,19 @@
         liked = !liked;
         heartBtn.innerText = liked ? "❤️" : "🤍";
         heartBtn.classList.toggle("liked", liked);
+    });
+</script>
+
+<script>
+    // 시간대 클릭 처리
+    document.addEventListener("DOMContentLoaded", function () {
+        const availableCells = document.querySelectorAll("td.available");
+
+        availableCells.forEach(cell => {
+            cell.addEventListener("click", () => {
+                cell.classList.toggle("selected");
+            });
+        });
     });
 </script>
 
