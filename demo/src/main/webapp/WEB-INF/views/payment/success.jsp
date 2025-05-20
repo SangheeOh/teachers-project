@@ -51,6 +51,8 @@
 <div class="message-box">
     <div class="emoji">🐣</div>
     <div class="success-text">정상적으로 처리했습니다.</div>
+    
+    <a href="/" class="home-link">홈으로 돌아가기</a>
 </div>
 </body>
 </html>

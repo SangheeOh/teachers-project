@@ -351,3 +351,8 @@ section{
     border-radius: 12px;
     overflow: hidden;
 }
+
+.icon-area a {
+  pointer-events: none;
+  cursor: default;
+}

@@ -51,7 +51,7 @@ public class SecurityConfig {
 		.maxSessionsPreventsLogin(true)
 		.sessionRegistry(sessionRegistry()))  // ✅ 이 부분 꼭 필요
 		// /, LoginPage, logout, register = 모든 사용자에게 허용
-		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails","/gologin")
+		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails","/gologin")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
 		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify","/search").permitAll()
@@ -87,6 +87,15 @@ public class SecurityConfig {
 				//.defaultSuccessUrl("/su", true)
 				.permitAll()
 				)
+		
+        // ✅ 로그인 안 한 사용자가 인증 필요한 페이지 접근 시 메시지 있는 로그인 페이지로 이동
+        .exceptionHandling(exception -> exception
+            .authenticationEntryPoint((request, response, authException) -> {
+                response.sendRedirect("/loginPage?required=true");
+            })
+        )
+		
+		
 		// 로그아웃 설정 
 		.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			// 로그아웃 성공시 이 url(/)로 리다이렉팅

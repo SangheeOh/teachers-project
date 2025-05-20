@@ -28,9 +28,17 @@
 </head>
 <body>
 
+
 	<div id="login-container-wrapper">
+
+	
 		<div id="login-container">
-			<h2>로그인</h2>
+			<a href="/">
+  	<img src="${pageContext.request.contextPath}/resources/assets/images/teachers/logo3.png" alt="TEACHERS 로고" style="display:block; margin: 30px auto; height: 60px;" />
+	</a>
+	
+		
+<!-- 로그인 실패 시 메시지 -->
 			
 <% 
     String error = request.getParameter("error");
@@ -40,6 +48,11 @@
 <% 
     } 
 %>
+
+<!-- spring security 인증되지 않은 사용자가 보호된 페이지 접근 시 메시지 -->
+<c:if test="${param.required != null}">
+  <p style="color: orange;">🔒 로그인 후 이용해주세요.</p>
+</c:if>
 
 <!-- ✅ 중복 로그인 시 메시지 -->
 <c:if test="${param.duplicate eq 'true'}">
@@ -65,23 +78,38 @@
 			<input type="hidden" name="_csrf" value="${_csrf.token}">
 			
 				<div class="input-group">
-					<label for="id">아이디</label>
-					<input type="text" id="id" name="id" required/>
+					
+					<input type="text" id="id" name="id" placeholder="아이디" required/>
 				</div> 
 				<div class="input-group">
-					<label for="pwd">비밀번호</label>
-					<input type="password" id="pwd" name="pwd" required/>
+				
+					<input type="password" id="pwd" name="pwd" placeholder="비밀번호" required/>
 				</div>
+				
+				<!-- 로그인 상태 유지 체크박스 -->
+				<div style="margin-top: 10px; display: flex; align-items: center;">
+				  <input type="checkbox" name="remember-me" id="remember" style="margin-right: 6px;" />
+				  <label for="remember" style="margin: 0; font-size: 14px; display: inline;">아이디 저장</label>
+				</div>
+				<br>
+				
 				<button type="submit" id="login-button">로그인</button>
 			</form>
-			
-			
-			
-			<!-- 구글 로그인 버튼 -->
+
+			<!-- 구글 로그인 버튼 (색깔 변경) -->
 			<a href="/oauth2/authorization/google">
-				<img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" />
+			  <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" 
+			       alt="Sign in with Google" 
+			       style="margin-top: 10px;" />
 			</a>
 			
+			<div style="margin-top: 20px; text-align: center; font-size: 14px; color: #777;">
+			  <a href="/findPwd" style="margin: 0 8px;">비밀번호 찾기</a> |
+			  <a href="/findId" style="margin: 0 8px;">아이디 찾기</a> |
+			  <a href="/registerPage" style="margin: 0 8px;">회원가입</a>
+			</div>
+
+
 			</sec:authorize> 
 			
 			<br><br>
@@ -119,15 +147,6 @@
 		        <button type="submit">로그아웃</button>
 		      </form>
    			</sec:authorize>
-			
-			<!-- ✅ 회원가입 (일반, Google 모두 로그인 안했을때만 보임)  -->
-			<sec:authorize access="isAnonymous()">
-			
-			<div id="register-link">
-				<!-- lcalhost:8080/register까지 이동 -->
-				<a href="${pageContext.request.contextPath}/registerPage">회원가입</a>	
-			</div>
-			</sec:authorize>
 			
 			
 		</div>
