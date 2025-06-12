@@ -31,16 +31,16 @@ public class TrainerController {
     ) {
     	
     	//로그 확인
-    	 System.out.println("📌 [Controller] /search 요청 도착");
+    	 System.out.println("[Controller] /search 요청 도착");
     	 
     	 
-    	 System.out.println("✅ city: " + city);
-    	 System.out.println("✅ district: " + district);
-    	 System.out.println("✅ town: " + town);
-    	 System.out.println("✅ speciality: " + speciality);
-    	 System.out.println("✅ gender: " + gender);
+    	 System.out.println("city: " + city);
+    	 System.out.println("district: " + district);
+    	 System.out.println("town: " + town);
+    	 System.out.println("speciality: " + speciality);
+    	 System.out.println("gender: " + gender);
     	    
-        Map<String, Object> filters = new HashMap<>(); // ✅ 수정: Object로 바꿈
+        Map<String, Object> filters = new HashMap<>(); // 수정: Object로 바꿈
         filters.put("city", city);
         filters.put("district", district);
         filters.put("town", town);
@@ -51,9 +51,9 @@ public class TrainerController {
         List<Trainer> trainerList = trainerService.searchTrainers(filters);
         
         // 로그 출력(강사수)
-        System.out.println("✅ 검색 결과 trainer 수: " + trainerList.size());
+        System.out.println("검색 결과 trainer 수: " + trainerList.size());
         // 로그 출력(강사 리스트)
-        System.out.println("👉 Trainer 리스트 확인:");
+        System.out.println("Trainer 리스트 확인:");
         for (Trainer t : trainerList) {
             System.out.println("TrainerNo: " + t.getTrainerNo() + " / Speciality: " + t.getSpeciality());
         }
@@ -72,7 +72,7 @@ public class TrainerController {
         
     	Trainer trainerdetails = trainerService.getTrainerDetail(trainerNo);
     	
-    	//System.out.println("✅ [Controller] 서비스에서 받은 trainerdetails: " + trainerdetails);
+    	//System.out.println("[Controller] 서비스에서 받은 trainerdetails: " + trainerdetails);
         
     	model.addAttribute("trainerdetails", trainerdetails);
     	

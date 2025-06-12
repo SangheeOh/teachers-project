@@ -22,11 +22,11 @@ public class UserService {
 
 	
 
-	//카네즈 2개//
+	//테스트
 	public void insertUser(User user) {
 		userMapper.insertUser(user);
 	}
-	
+	//테스트
 	public String findWriter(String id) {
 		return userMapper.findWriter(id);
 	}

@@ -19,12 +19,12 @@ public class Trainer {
     private String subject;
     private String content;
     private String profileImg;
-    private String createdate; // Timestamp는 String으로 받아도 무방
+    private String createdate; // Timestamp는 String으로 받아도됨
 
     // 기본 생성자
     public Trainer() {}
 
-    // Getter / Setter
+    // Getter Setter
     public int getTrainerNo() {
         return trainerNo;
     }

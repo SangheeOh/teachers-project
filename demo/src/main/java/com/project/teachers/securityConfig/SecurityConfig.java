@@ -42,21 +42,20 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		//csrf 방지설정
 		http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringRequestMatchers(new AntPathRequestMatcher("/payment/verify", "POST")))
-		// CORS 설정(특정 서버에서만 데이터를 주고 받음)
+		// CORS 설정(클라이언트와 통신 가능하게)
 		.cors(cors -> cors.configurationSource(corsCorsfigurationSource()))
-		// 세션 필요할 때만 생
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 		// 동일 계정으로 중복 로그인 불가 설정
 		.maximumSessions(1)
 		.maxSessionsPreventsLogin(true)
-		.sessionRegistry(sessionRegistry()))  // ✅ 이 부분 꼭 필요
-		// /, LoginPage, logout, register = 모든 사용자에게 허용
+		.sessionRegistry(sessionRegistry())) 
+		//모든 사용자에게 허용
 		.authorizeHttpRequests(authz->authz.requestMatchers("/", "/loginPage","/logout", "/noticeCheckPage", "/registerPage", "/menu/all", "/oauth2/**","/payment/verify","/su","/fa","/selectall","/search","/trainer","/images/**", "/css/**", "/js/**", "/static/**","/trainerdetails","/gologin")
 		.permitAll()
 		// login은 post요청으로 데이터 전송할 때 사용, 모든 사용자 허용 
 		.requestMatchers(HttpMethod.POST,"/login", "/register","/payment/verify","/search").permitAll()
 		.requestMatchers("/resources/**","/WEB-INF/**").permitAll()
-		// noticeAdd, noticeModifyPage는 admin, manager 일 때만 접근 가능
+		// noticeAdd, noticeModifyPage 로그인 했어도 member, trainer 일 때만 접근 가능
 		.requestMatchers("/noticeAdd","/noticeModifyPage").hasAnyAuthority("MEMBER","TRAINER")
 		//위에 적힌 거 외에는 로그인한 사용자만 접근가능 
 		.anyRequest().authenticated()
@@ -88,7 +87,7 @@ public class SecurityConfig {
 				.permitAll()
 				)
 		
-        // ✅ 로그인 안 한 사용자가 인증 필요한 페이지 접근 시 메시지 있는 로그인 페이지로 이동
+        // 로그인 안 한 사용자가 인증 필요한 페이지 접근 시 메시지 있는 로그인 페이지로 이동
         .exceptionHandling(exception -> exception
             .authenticationEntryPoint((request, response, authException) -> {
                 response.sendRedirect("/loginPage?required=true");
@@ -105,7 +104,7 @@ public class SecurityConfig {
 			.deleteCookies("JSESSIONID")
 			.addLogoutHandler((request, response, authentication) -> {
 		        if (authentication != null) {
-		            sessionRegistry().removeSessionInformation(request.getSession().getId()); // ✅ 세션 완전 제거
+		            sessionRegistry().removeSessionInformation(request.getSession().getId()); // 세션 완전 제거
 		        }
 		    })
 		    .addLogoutHandler(new HeaderWriterLogoutHandler(
@@ -127,7 +126,7 @@ public class SecurityConfig {
 
 	            HttpSession session = request.getSession(false);
 
-	            // ✅ 이미 로그인된 경우 로그인 방식 비교
+	            // 이미 로그인된 경우 로그인 방식 비교
 	            if (session != null && session.getAttribute("loginType") != null) {
 	                String currentLoginType = session.getAttribute("loginType").toString();
 	                String newLoginType = (authentication.getPrincipal() instanceof OAuth2User) ? "GOOGLE" : "LOCAL";
@@ -142,7 +141,7 @@ public class SecurityConfig {
 	            // 새로운 세션 확보
 	            session = request.getSession(true);
 
-	            // ✅ 로그인 방식 저장
+	            // 로그인 방식 저장
 	            String loginType = (authentication.getPrincipal() instanceof OAuth2User) ? "GOOGLE" : "LOCAL";
 	            session.setAttribute("isAuthenticated", true);
 	            session.setAttribute("loginType", loginType);
