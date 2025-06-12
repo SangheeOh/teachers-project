@@ -16,7 +16,7 @@ public interface AdminMapper {
 		        r.reservation_no,
 		        u.name AS userName,
 		        tu.name AS trainerName,  -- trainer의 이름은 user 테이블에서 가져와야 함
-		        t.subject,
+		        t.speciality,
 		        CONCAT(t.city, ' ', t.district, ' ', t.town) AS region,
 		        r.day,
 		        r.time,
@@ -34,4 +34,22 @@ public interface AdminMapper {
 		    ORDER BY p.createdate DESC
 		""")
 		List<AdminReport> getAdminReport();
+	
+	
+	//대시보드
+	@Select("SELECT COUNT(*) FROM USER")
+    int countTotalUsers();
+
+	//대시보드
+    @Select("SELECT COUNT(*) FROM USER WHERE role = 'trainer'")
+    int countTrainers();
+
+    //대시보드
+    @Select("""
+        SELECT COUNT(*) FROM RESERVATION 
+        WHERE DATE(createdate) = CURDATE()
+    """)
+    int countTodayReservations();
+	
+	
 }

@@ -21,5 +21,9 @@ public class CustomUser extends org.springframework.security.core.userdetails.Us
 		 public String getRole() {
 		        return user.getRole(); // 내부 user에서 role 가져오기
 		 }
+		 
+		 public int  getUser_no() {
+			 return user.getUser_no();
+		    }
 	
 }

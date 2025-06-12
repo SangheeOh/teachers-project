@@ -4,19 +4,19 @@ import java.time.LocalDateTime;
 
 public class AdminReport {
 
-	 	private int reservationNo;
-	    private String userName;
-	    private String trainerName;
-	    private String subject;
-	    private String region; // 시/군/구 통합 표현
-	    private String day;
-	    private String time;
-	    private int amount;
-	    private String method;
-	    private String paymentType;
-	    private String paymentStatus;
-	    private LocalDateTime paymentDate;
-	    private String reservationStatus;
+	    private int reservationNo;
+	    private String userName;       // 사용자 이름
+	    private String trainerName;    // 강사 이름
+	    private String speciality;     // 강사 소개 제목
+	    private String region;         // 시/군/구 통합
+	    private String day;            // 예약 요일
+	    private String time;           // 예약 시간
+	    private int amount;            // 결제 금액
+	    private String method;         // 결제 수단
+	    private String paymentType;    // 결제 유형
+	    private String paymentStatus;  // 결제 상태
+	    private LocalDateTime paymentDate; // 결제 일시
+	    private String reservationStatus;  // 예약 상태
 
 	    // Getter Setter
 	    public int getReservationNo() {
@@ -43,12 +43,12 @@ public class AdminReport {
 	        this.trainerName = trainerName;
 	    }
 
-	    public String getSubject() {
-	        return subject;
+	    public String getSpeciality() {
+	        return speciality;
 	    }
 
-	    public void setSubject(String subject) {
-	        this.subject = subject;
+	    public void setSpeciality(String speciality) {
+	        this.speciality = speciality;
 	    }
 
 	    public String getRegion() {

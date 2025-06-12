@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -34,7 +35,7 @@
     }
 
     .sidebar .welcome {
-      font-size: 17px;
+      font-size: 14px;
       font-weight: bold;
       padding: 15px 10px;
       border-bottom: 1px solid #b9aaf0;
@@ -102,6 +103,7 @@
       display: flex;
       align-items: center;
       gap: 15px;
+      border: 6px solid #d8f2ea; /* ✅ 좀 더 보이는 하늘색 */
     }
 
     .card .icon-box {
@@ -184,7 +186,7 @@
 <div class="wrapper">
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="welcome">소래님, 환영합니다! 😊</div>
+    <div class="welcome">${sessionScope.name}님, 환영합니다! 😊</div>
     <h2>관리자 메뉴</h2>
     <ul>
       <li><a href="/admin/users">회원 관리</a></li>
@@ -204,28 +206,28 @@
         <div class="icon-box">👥</div>
         <div class="info">
           <h3>총 회원 수</h3>
-          <p>${totalUserCount}</p>
+          <p>${totalUserCount}명</p>
         </div>
       </div>
       <div class="card">
         <div class="icon-box">🎓</div>
         <div class="info">
           <h3>강사 인원</h3>
-          <p>${todayUserCount}</p>
+          <p>${todayUserCount}명</p>
         </div>
       </div>
       <div class="card">
         <div class="icon-box">📅</div>
         <div class="info">
           <h3>금일 예약 건수</h3>
-          <p>${reservationCount}</p>
+          <p>3건</p>
         </div>
       </div>
       <div class="card">
         <div class="icon-box">💳</div>
         <div class="info">
-          <h3>결제 완료 비율</h3>
-          <p>${paymentRate}%</p>
+          <h3>취소요청</h3>
+          <p>1건</p>
         </div>
       </div>
     </div>
@@ -253,13 +255,13 @@
       <tr>
         <td>${item.userName}</td>
         <td>${item.trainerName}</td>
-        <td>${item.subject}</td>
+        <td>${item.speciality}</td>
         <td>${item.region}</td>
         <td>${item.day}</td>
-        <td>${item.time}</td>
+        <td>${item.time}시</td>
         <td>${item.amount}</td>
         <td>${item.method}</td>
-        <td><fmt:formatDate value="${item.paymentDate}" pattern="yyyy-MM-dd HH:mm" /></td>
+        <td>${item.paymentDate}</td>
         <td>${item.reservationStatus}</td>
         <td>
           <form action="/admin/cancelReservation" method="post">

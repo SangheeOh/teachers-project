@@ -52,18 +52,14 @@ public class PageController {
 			return "register/index";
 		}	
 		
-		
-		// admin page 이동
-		@GetMapping("/adminPage")
-		public String adminPage() {
-			return "admin";
-		}
-		
+		/*
 		// mypage 이동
 		@GetMapping("/mypage")
 		public String mypage() {
 			return "mypage";
 		}
+		*/
+	
 		
 		// reviewlist 이동
 		@GetMapping("/reviewlist")

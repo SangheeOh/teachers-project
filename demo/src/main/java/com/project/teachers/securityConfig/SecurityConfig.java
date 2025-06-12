@@ -153,6 +153,7 @@ public class SecurityConfig {
 	            if (principal instanceof CustomUser customUser) {
 	                session.setAttribute("name", customUser.getUser().getName());
 	                session.setAttribute("role", customUser.getRole()); 
+	                session.setAttribute("user_no", customUser.getUser_no());
 	            } else if (principal instanceof OAuth2User oauth2User) {
 	                session.setAttribute("id", oauth2User.getAttribute("email"));
 	                session.setAttribute("name", oauth2User.getAttribute("name"));
