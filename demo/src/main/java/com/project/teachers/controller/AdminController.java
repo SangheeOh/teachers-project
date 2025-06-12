@@ -16,10 +16,20 @@ public class AdminController {
 	  @Autowired
 	    private AdminService adminService;
 
-	    @GetMapping("/admin")
+	    @GetMapping("/adminPage")
 	    public String showReservationList(Model model) {
+	    	   	
 	        List<AdminReport> adminReport = adminService.getAdminReport();
+	        
+	        //System.out.println("관리자 페이지 adminReport 사이즈: " + adminReport.size());	
+	        
 	        model.addAttribute("adminReport", adminReport);
+	        
+	        //대시보드
+	        model.addAttribute("totalUserCount", adminService.getTotalUserCount());
+	        model.addAttribute("todayUserCount", adminService.getTrainerCount());
+	        model.addAttribute("reservationCount", adminService.getTodayReservationCount());
+	        
 	        return "admin"; 
 	    }
 	}

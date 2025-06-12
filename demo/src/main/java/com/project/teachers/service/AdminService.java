@@ -15,6 +15,23 @@ public class AdminService {
     private AdminMapper adminMapper;
 
     public List<AdminReport> getAdminReport() {
+    	
+    	//System.out.println("[AdminService] getAdminReport() 호출");
+    	 
         return adminMapper.getAdminReport();
     }
+    
+    //대시보드
+    public int getTotalUserCount() {
+        return adminMapper.countTotalUsers();
+    }
+    //대시보드
+    public int getTrainerCount() {
+        return adminMapper.countTrainers();
+    }
+    //대시보드
+    public int getTodayReservationCount() {
+        return adminMapper.countTodayReservations();
+    }
+    
 }

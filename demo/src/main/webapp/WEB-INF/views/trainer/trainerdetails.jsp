@@ -42,10 +42,14 @@
 	        font-size: 18px; /* 전체 기본 폰트 사이즈 업 */
 	        line-height: 1.8; /* 줄 간격 늘림 */
 	        color: #333;
+	        border: 1px solid #ddd; /* 연한 회색 테두리 */
+		    border-radius: 16px;
+		    box-shadow: 0 0 6px rgba(0, 0, 0, 0.02); /* 부드러운 입체감 */
+		    background-color: #f8f7fc;  
         }
         
          .profile-info p {
-            margin-bottom: 16px; /* 항목 간 간격 늘림 */
+            margin-bottom: 20px; /* 항목 간 간격 늘림 */
             font-size: 20px;
     	}
     	
@@ -74,7 +78,7 @@
             color: #e74c3c;
         }
         .profile-info p {
-            font-size: 16px;
+            font-size: 18px;
             color: #555;
             margin: 8px 0;
         }
@@ -158,14 +162,14 @@
     .available.selected {
         background-color: #8dc3ff; /* 선택된 경우 진한 파랑 */
     }
-.banner-bar {
-    background-color: #000;      /* 완전한 검정색 */
-    width: 100%;                 /* container 가로 꽉 채움 */
-    height: 60px;                /* 약간 더 굵게 */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-}
+	.banner-bar {
+	    background-color: #000;      /* 완전한 검정색 */
+	    width: 100%;                 /* container 가로 꽉 채움 */
+	    height: 60px;                /* 약간 더 굵게 */
+	    display: flex;
+	    align-items: center;
+	    justify-content: flex-start; /* 왼쪽 정렬 */
+	}
 
 .banner-bar img {
     height: 40px; /* 로고 크게 보이게 */
@@ -177,12 +181,34 @@
 
 <div class="container">
 
-        <!-- ✅ 배너: 강사 프로필 바로 위에 위치 -->
-    <div class="banner-bar">
-        <a href="/main.jsp">
-            <img src="${pageContext.request.contextPath}/resources/assets/images/teachers/logo3.png" alt="Teachers 로고">
-        </a>
+<div class="banner-bar"
+     style="margin-left: -50px; margin-right: -50px; width: calc(100% + 100px); padding: 0 50px; overflow-x: hidden; box-sizing: border-box;">
+  <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; overflow: hidden;">
+
+    <!-- ✅ 1. 로고 왼쪽 여백 축소 (margin-left → 0) -->
+    <!-- ✅ 2. 메뉴 보라색 더 진하게 (#6C03FF) -->
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <a href="/">
+        <img src="${pageContext.request.contextPath}/resources/assets/images/teachers/logo3.png" alt="로고" style="height: 32px; margin-left: 0;">
+      </a>
+      <a href="/trainer" style="color: #6C03FF; font-weight: 600; text-decoration: none;">전문가 찾기</a>
+      <a href="/reviewlist" style="color: #6C03FF; font-weight: 600; text-decoration: none;">커뮤니티</a>
     </div>
+
+    <!-- ✅ 3. 로그아웃 ↔ 마이페이지 간격을 32px로 여유 있게 조정 -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <sec:authorize access="isAuthenticated()">
+        <a href="/logout" style="color: #6C03FF; font-weight: 600; text-decoration: none;">로그아웃</a>
+        	&nbsp;&nbsp;
+        <a href="/mypage" style="color: #6C03FF; font-weight: 600; text-decoration: none;">마이페이지</a>
+      </sec:authorize>
+    </div>
+
+  </div>
+</div>
+
+
+
 
 <br>
     <div class="profile-header">
@@ -222,7 +248,7 @@
             </div>
             <div>
                 <strong>가능 시간대</strong><br/><br>
-				<c:out value="[요일] : ${trainerdetails.daysAvailable} -----  [시간] : ${trainerdetails.timeSlot}시" default="월~금 오전 10시 ~ 오후 6시"/>
+				<c:out value="[요일] : ${trainerdetails.daysAvailable} ｜  [시간] : ${trainerdetails.timeSlot}시" default="월~금 오전 10시 ~ 오후 6시"/>
             </div>
         </div>
         

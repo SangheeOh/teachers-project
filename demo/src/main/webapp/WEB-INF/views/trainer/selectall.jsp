@@ -225,23 +225,23 @@
 		        	<div class="expert-card">
                 <span class="badge">최우수</span>
                 <a href="profile.jsp?trainerId=1">
-                    <img src="https://images.pexels.com/photos/8411309/pexels-photo-8411309.jpeg" alt="강사1">
+                    <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg" alt="강사1">
                 </a>
-                <div class="expert-title">클래식 요가, 아쉬탕가 요가 프로그램</div>
-                <div class="tags">#요가 #체형교정 #생활통증 완화</div>
+                <div class="expert-title">체력 끌어올리는 근력 강화 웨이트</div>
+                <div class="tags">#웨이트 #체력강화 #다이어트</div>
             </div>
             <div class="expert-card">
                 <span class="badge">우수</span>
                 <a href="profile.jsp?trainerId=2">
                     <img src="https://images.pexels.com/photos/3763879/pexels-photo-3763879.jpeg" alt="강사2">
                 </a>
-                <div class="expert-title">체력 끌어올리는 근력 강화 웨이트</div>
-                <div class="tags">#웨이트 #체력강화 #다이어트</div>
+                <div class="expert-title">심폐와 근력 증진 크로스핏</div>
+                <div class="tags">#크로스핏 #그룹운동 #코어강화</div>
             </div>
             <div class="expert-card">
                 <span class="badge">추천</span>
                 <a href="profile.jsp?trainerId=3">
-                    <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg" alt="강사3">
+                    <img src="https://images.pexels.com/photos/8411309/pexels-photo-8411309.jpeg" alt="강사3">
                 </a>
                 <div class="expert-title">밸런스를 잡아주는 필라테스</div>
                 <div class="tags">#필라테스 #체형교정 #건강유지</div>
@@ -259,8 +259,8 @@
                 <a href="profile.jsp?trainerId=5">
                     <img src="https://images.pexels.com/photos/7671947/pexels-photo-7671947.jpeg" alt="강사5">
                 </a>
-                <div class="expert-title">산후 회복 필라테스</div>
-                <div class="tags">#산모운동 #필라테스 #회복</div>
+                <div class="expert-title">클래식 요가, 아쉬탕가 요가 프로그램</div>
+                <div class="tags">#요가 #체형교정 #생활통증 완화</div>
             </div>
             <div class="expert-card">
                 <span class="badge">추천</span>
