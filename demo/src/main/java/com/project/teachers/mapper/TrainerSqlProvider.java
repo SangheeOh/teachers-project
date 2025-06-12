@@ -5,8 +5,8 @@ import java.util.Map;
 public class TrainerSqlProvider {
 
     public String buildSearchQuery(Map<String, Object> filters) {
-        System.out.println("📌 [Provider] buildSearchQuery 실행");
-        System.out.println("✅ 받은 filters (원본): " + filters);
+        System.out.println("[Provider] buildSearchQuery 실행");
+        System.out.println("받은 filters (원본): " + filters);
 
         // 1. 성별 필터 가공 처리
         if (filters.get("gender") != null) {
@@ -18,10 +18,10 @@ public class TrainerSqlProvider {
             }
         }
 
-        System.out.println("✅ 필터 가공 후 (성별 변환 적용): " + filters);
+        System.out.println("필터 후 (성별 변환 적용): " + filters);
 
         // 2. SQL 쿼리 빌드
-        StringBuilder sql = new StringBuilder();
+        StringBuilder sql = new StringBuilder();  //문자열을 효율적으로 붙이기 위해 StringBuilder 사용
 
         // snake_case 컬럼들에 AS 작업을 해야 Trainer.java 필드와 정확히 매핑 (아니면 PROPERTIES 설정하면됨)
         sql.append("SELECT ");
@@ -38,12 +38,12 @@ public class TrainerSqlProvider {
         sql.append("afternoon, ");
         sql.append("subject, ");
         sql.append("content, ");
-        sql.append("profile_img AS profileImg, "); // ✅ 여기가 핵심!!!
+        sql.append("profile_img AS profileImg, "); // 이부분중요
         sql.append("createdate ");
-        sql.append("FROM trainer WHERE 1=1");
+        sql.append("FROM trainer WHERE 1=1"); //이후 조건들을 AND로만 붙일 수 있게 WHERE
 
         if (filters.get("city") != null && !filters.get("city").toString().trim().isEmpty()) {
-            sql.append(" AND city = #{city}");
+            sql.append(" AND city = #{city}"); //조건이 있을 때만 AND 필드명 = #{값} 을 붙이고
         }
         if (filters.get("district") != null && !filters.get("district").toString().trim().isEmpty()) {
             sql.append(" AND district = #{district}");
@@ -58,7 +58,7 @@ public class TrainerSqlProvider {
             sql.append(" AND gender = #{gender}");
         }
 
-        System.out.println("✅ 최종 생성된 SQL: " + sql.toString());
+        System.out.println("최종 SQL: " + sql.toString());
 
         return sql.toString();
     }

@@ -18,7 +18,7 @@ public class User {
     // 기본 생성자
     public User() {}
 
-    // Getter & Setter
+    // Getter Setter
     public int getUser_no() {
         return user_no;
     }

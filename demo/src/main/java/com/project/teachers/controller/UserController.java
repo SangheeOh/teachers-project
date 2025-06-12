@@ -29,7 +29,7 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	//user처음 테스트용
+	//user 테스트용
 		@GetMapping("/usertest.me")
 		 public String selectUser(Model model) {
 			
@@ -61,8 +61,7 @@ public class UserController {
 		    //패스워드 암호화
 		    String userPassword = user.getPwd();
 		    String passwordEncoded = passwordEncoder.encode(userPassword);  //암호화
-		    user.setPwd(passwordEncoded);//암호화된 패스워드 담김 
-		    System.out.println("userPassword: "+userPassword);
+		    user.setPwd(passwordEncoded);//암호화된 패스워드 담김 	   
 
 		    
 		    //성공, 실패 알림창

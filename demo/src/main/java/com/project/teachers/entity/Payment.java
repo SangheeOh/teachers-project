@@ -23,8 +23,7 @@ public class Payment {
 
     public Payment() {}
 
-    // Getters & Setters
-
+    // Getters Setters
     public int getPaymentNo() {
         return paymentNo;
     }

@@ -278,7 +278,8 @@
 				                        <c:set var="dayMatch" value="true" />
 				                    </c:if>
 				                </c:forEach>
-				
+								
+								<!-- daysAvailable와 timeSlots가 모두 해당할 때 ✔ 표시 -->
 				                <td class="${timeMatch and dayMatch ? 'available' : ''}">
 				                    <c:choose>
 				                        <c:when test="${timeMatch and dayMatch}">

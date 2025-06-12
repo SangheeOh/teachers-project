@@ -17,13 +17,13 @@ import com.project.teachers.entity.User;
 public class PageController {
 	
 	
-		// 페이지를 조회,이동할 때 getMapping 사용
+		//메인페이지조회
 		@GetMapping("/")
 		public String home() {
 			return "main";
 		}
 		
-		// 페이지를 조회,이동할 때 getMapping 사용
+		// 페이지 조회
 		@GetMapping("/gologin")
 		public String login() {
 			return "login/index";

@@ -12,15 +12,11 @@ import com.project.teachers.entity.Trainer;
 @Mapper
 public interface TrainerMapper {
 
-	//강사 검색 후 전체 list 출력
+	//1. 강사 목록 전체 조회용 (해당 강사 전체 list 출력, TrainerSqlProvider 불러서 조건에 따라 SQL을 동적으로 조합)
     @SelectProvider(type = TrainerSqlProvider.class, method = "buildSearchQuery")
     List<Trainer> searchTrainers(Map<String, Object> filters);
-    
-    //강사 상세조회
-    //@Select("SELECT * FROM trainer WHERE trainer_no = #{trainerNo}")
-    //Trainer findByTrainerNo(int trainerNo);
-    
-    //강사 상세조회(as로 매핑)
+
+    //2. 특정 강사 한 명의 상세정보 조회용 (as로 매핑, """ 줄바꿈기능)
     @Select("""
     	    SELECT 
     	        t.trainer_no AS trainerNo,
