@@ -152,25 +152,32 @@
 	</dependency>
 	
 	
-	<!-- JSON 파서 -->
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-core</artifactId>
-</dependency>
-
-<!-- JSON 어노테이션 지원 -->
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-annotations</artifactId>
-</dependency>
+		<!-- JSON 파서 -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	</dependency>
 	
+	<!-- JSON 어노테이션 지원 -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	</dependency>
+		
+		
+	<!-- spring-security-core가 있어야 sessionRegistry 관련 클래스 사용 가능 -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	</dependency>
 	
-<!-- spring-security-core가 있어야 sessionRegistry 관련 클래스 사용 가능 -->
-<dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-core</artifactId>
-</dependency>
-	
+	<!-- Apache POI for Excel -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>
+	    <version>5.2.5</version>
+	</dependency>
+		
 
 	</dependencies>
 

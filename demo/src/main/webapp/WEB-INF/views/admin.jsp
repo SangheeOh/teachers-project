@@ -206,21 +206,21 @@
         <div class="icon-box">👥</div>
         <div class="info">
           <h3>총 회원 수</h3>
-          <p>${totalUserCount}명</p>
+          <p>${totalUserCount}0명</p>
         </div>
       </div>
       <div class="card">
         <div class="icon-box">🎓</div>
         <div class="info">
           <h3>강사 인원</h3>
-          <p>${todayUserCount}명</p>
+          <p>${todayUserCount}0명</p>
         </div>
       </div>
       <div class="card">
         <div class="icon-box">📅</div>
         <div class="info">
           <h3>금일 예약 건수</h3>
-          <p>3건</p>
+          <p>6건</p>
         </div>
       </div>
       <div class="card">
@@ -262,13 +262,16 @@
         <td>${item.amount}</td>
         <td>${item.method}</td>
         <td>${item.paymentDate}</td>
-        <td>${item.reservationStatus}</td>
+        <td>${item.paymentStatus}</td>
         <td>
-          <form action="/admin/cancelReservation" method="post">
-            <input type="hidden" name="reservationNo" value="${item.reservationNo}" />
-            <button type="submit" class="btn-cancel">취소</button>
-          </form>
-        </td>
+		  <button
+		    class="btn-cancel"
+		    type="button"
+		    onclick="<c:if test='${item.paymentStatus ne "paid"}'>alert('취소 처리 예정입니다');</c:if>"
+		  >
+		    취소
+		  </button>
+		</td>
       </tr>
     </c:forEach>
   </tbody>

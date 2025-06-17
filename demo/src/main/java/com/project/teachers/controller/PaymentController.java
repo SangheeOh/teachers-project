@@ -4,6 +4,7 @@ import com.project.teachers.entity.Payment;
 import com.project.teachers.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -36,4 +37,16 @@ public class PaymentController {
             return "payment/fail";
         }
     }
+    
+    //reservationNo 받기
+    @GetMapping("/reserveno")
+    public String startPayment(@RequestParam("reservationNo") int reservationNo, Model model) {
+    	
+    	System.out.println("[paymentController] reservationNo=" + reservationNo);
+    	
+        model.addAttribute("reservationNo", reservationNo);
+        
+        return "payment/payment";
+    }
+
 }

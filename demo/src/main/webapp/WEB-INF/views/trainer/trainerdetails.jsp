@@ -171,10 +171,20 @@
 	    justify-content: flex-start; /* 왼쪽 정렬 */
 	}
 
-.banner-bar img {
-    height: 40px; /* 로고 크게 보이게 */
-    margin-left: 20px; /* 로고와 왼쪽 간격 */
-}
+	.banner-bar img {
+	    height: 40px; /* 로고 크게 보이게 */
+	    margin-left: 20px; /* 로고와 왼쪽 간격 */
+	}
+	
+	  td[data-available] {
+	    background-color: #d6ecff;
+	    cursor: pointer;
+	    font-weight: bold;
+	    text-align: center;
+	  }
+	  td[data-available].selected {
+	    background-color: #90caff;
+	  }
     </style>
 </head>
 <body>
@@ -306,7 +316,9 @@
 				                </c:forEach>
 								
 								<!-- daysAvailable와 timeSlots가 모두 해당할 때 ✔ 표시 -->
-				                <td class="${timeMatch and dayMatch ? 'available' : ''}">
+				               <td
+								  <c:if test="${timeMatch and dayMatch}">data-available="true" onclick="selectCell(this)"</c:if>
+								  data-day="${day}" data-time="${hourStr}">
 				                    <c:choose>
 				                        <c:when test="${timeMatch and dayMatch}">
 				                            ✔
@@ -333,8 +345,15 @@
         </div>
     </div>
 
-    <!-- 예약 및 결제 버튼 -->
-    <a href="payment" class="reserve-btn">예약하기</a>
+    <!-- 예약 및 결제 버튼 csrf 포함시킨다-->
+	<form action="/reserve" method="get" id="reservationForm" style="text-align:center;">
+	  <input type="hidden" name="trainer_no" value="${trainerdetails.trainerNo}" />
+	  <input type="hidden" name="day" id="selectedDay" />
+	  <input type="hidden" name="time" id="selectedTime" />
+	  <button type="submit" class="reserve-btn">예약하기</button>
+	</form>
+
+	
 </div>
 
 <script>
@@ -348,18 +367,40 @@
     });
 </script>
 
-<script>
-    // 시간대 클릭 처리
-    document.addEventListener("DOMContentLoaded", function () {
-        const availableCells = document.querySelectorAll("td.available");
 
-        availableCells.forEach(cell => {
-            cell.addEventListener("click", () => {
-                cell.classList.toggle("selected");
-            });
-        });
-    });
+
+
+<!-- ✅ JavaScript -->
+<script>
+function selectCell(cell) {
+  // 선택 토글
+  cell.classList.toggle("selected");
+
+  // 선택된 경우 hidden input에 값 저장
+  if (cell.classList.contains("selected")) {
+    document.getElementById("selectedDay").value = cell.dataset.day;
+    document.getElementById("selectedTime").value = cell.dataset.time;
+  } else {
+    document.getElementById("selectedDay").value = "";
+    document.getElementById("selectedTime").value = "";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("reservationForm").addEventListener("submit", function (e) {
+    const day = document.getElementById("selectedDay").value;
+    const time = document.getElementById("selectedTime").value;
+
+    if (!day || !time) {
+      e.preventDefault();
+      alert("예약할 요일과 시간을 선택해주세요!");
+    }
+  });
+});
 </script>
+
+
+
 
 </body>
 </html>
