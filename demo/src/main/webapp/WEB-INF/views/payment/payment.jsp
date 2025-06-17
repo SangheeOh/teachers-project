@@ -117,9 +117,9 @@
     <div class="form-group">
         <label for="program">프로그램 선택</label>
         <select id="program" onchange="updatePrice()">
-            <option value="basic">기본 프로그램 (1원)</option>
-            <option value="premium">프리미엄 프로그램 (2원)</option>
-            <option value="vip">VIP 프로그램 (3원)</option>
+            <option value="basic">기본 프로그램 (15,000원)</option>
+            <option value="premium">프리미엄 프로그램 (25,000원)</option>
+            <option value="vip">VIP 프로그램 (39,000원)</option>
         </select>
     </div>
 
@@ -129,8 +129,11 @@
     </div>
 
     <div class="price-box">
-        총 결제 금액: <span id="totalPrice">1원</span>
+        총 결제 금액: <span id="totalPrice">15,000원</span>
     </div>
+
+	<!-- 예약번호를 숨겨서 결제 요청에 쓸 수 있게 -->
+	<input type="hidden" id="reservationNo" value="${reservationNo}" />
 
     <button type="button" class="pay-btn" onclick="requestPay();">결제하기</button>
 </div>
@@ -145,9 +148,9 @@
         let price = 0;
 
         switch (program) {
-            case "basic": price = 1; break;
-            case "premium": price = 2; break;
-            case "vip": price = 3; break;
+            case "basic": price = 15000; break;
+            case "premium": price = 25000; break;
+            case "vip": price = 39000; break;
         }
 
         const total = price * count;
@@ -161,6 +164,9 @@
         const count = document.getElementById("people").value;
         const merchantUid = "order_" + new Date().getTime();
 
+        const reservationNo = document.getElementById("reservationNo").value;
+        console.log("reservationNo 확인:", reservationNo);
+        
         IMP.request_pay({
             pg: "html5_inicis.INIpayTest",
             pay_method: "card",
@@ -179,7 +185,7 @@
                     body: new URLSearchParams({
                         impUid: rsp.imp_uid,
                         merchantUid: rsp.merchant_uid,
-                        reservationNo: 3 // 💡 실제 예약 번호로 교체!
+                        reservationNo: reservationNo // 💡 실제 예약 번호로 교체!
                     })
                 });
 
@@ -193,5 +199,10 @@
         });
     }
 </script>
+
+<script>
+    console.log("[JS] Hidden 예약번호:", document.getElementById("reservationNo").value);
+</script>
+
 </body>
 </html>

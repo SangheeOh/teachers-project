@@ -27,8 +27,8 @@ public class PaymentService {
     private static final String IMP_URL = "https://api.iamport.kr";
 
     public Payment verifyAndSavePayment(String impUid, String merchantUid, int reservationNo) {
-        System.out.println("[Service] verifyAndSavePayment 호출");
-        System.out.println("impUid(service): " + impUid);
+        //System.out.println("[Service] verifyAndSavePayment 호출");
+        //System.out.println("impUid(service): " + impUid);
 
         Payment payment = verifyPayment(impUid);
 
@@ -38,7 +38,7 @@ public class PaymentService {
             return savePayment(payment);
         }
 
-        System.out.println("[Service] 결제 상태가 'paid'가 아님");
+        //System.out.println("[Service] 결제 상태가 'paid'가 아님");
         return null;
     }
 
@@ -50,7 +50,7 @@ public class PaymentService {
             return null;
         }
 
-        System.out.println("Access Token 발급 성공: " + accessToken);
+        //System.out.println("Access Token 발급 성공: " + accessToken);
 
         String url = IMP_URL + "/payments/" + impUid;
         HttpHeaders headers = new HttpHeaders();
@@ -64,7 +64,7 @@ public class PaymentService {
 
             if (response.getStatusCode() == HttpStatus.OK) {
                 Map<String, Object> body = response.getBody();
-                System.out.println("[Service] 결제 검증 응답 바디: " + body);
+                //System.out.println("[Service] 결제 검증 응답 바디: " + body);
 
                 Map<String, Object> data = (Map<String, Object>) body.get("response");
 
@@ -106,7 +106,7 @@ public class PaymentService {
             );
 
             String responseBody = response.getBody();
-            System.out.println("[AccessToken 응답 본문]: " + responseBody);
+            //System.out.println("[AccessToken 응답 본문]: " + responseBody);
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(responseBody);
@@ -127,9 +127,9 @@ public class PaymentService {
     
     //db저장
     private Payment savePayment(Payment payment) {
-        System.out.println("[Service] DB 저장 시도");
+        //System.out.println("[Service] DB 저장 시도");
         paymentMapper.insertPayment(payment);
-        System.out.println("[Service] DB 저장 성공");
+        //System.out.println("[Service] DB 저장 성공");
         return payment;
     }
 }
