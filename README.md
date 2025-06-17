@@ -27,8 +27,9 @@
 | 결제 기능  | Iamport API 연동으로 간편 결제, 서버 검증, DB 저장 완결형 흐름 제공                                       |
 | MyPage  | 개인정보 수정, 예약·결제 내역 확인 및 관리                                                            |
 | Admin | 관리자전용 page 분기, 지표 시각화 대시보드, 예약·결제 현황 테이블 통합 지원 및 Excel 다운로드 기능 제공                  |  
-<br><br>
 
+
+<br><br>
 ## ⚙️ 사용 기술 스택
 - Backend: Spring Boot 3.4.2  Maven  Java17  MyBatis
 - Frontend: JSP  HTML  CSS  JavaScript
