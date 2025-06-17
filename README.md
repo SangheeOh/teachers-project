@@ -1,7 +1,7 @@
 
 
 # ✨ Teachers Project  
-퍼스널 트레이너와 사용자를 연결하는 예약/결제 플랫폼 
+### 퍼스널 트레이너와 사용자를 연결하는 예약/결제 플랫폼 
 (Spring Boot + MySQL 기반 웹 프로젝트)  
 <br><br>
 
@@ -25,8 +25,7 @@
 | 예약 기능  | 강사 별 수업 가능 시간 바둑판 형태 UI 제공 및 셀 클릭하여 직관적 예약                                           |
 | 결제 기능  | Iamport API 연동으로 간편 결제, 서버 검증, DB 저장 완결형 흐름 제공                                       |
 | 마이페이지  | 개인정보 수정, 예약·결제 내역 확인 및 관리                                                            |
-| 관리자 기능 | Admin 전용 페이지 분기, 지표 시각화 대시보드, 예약·결제 현황 테이블 통합 지원 및 Excel 다운로드 기능 제공                  |
-<br><br>
+| 관리자 기능 | Admin 전용 페이지 분기, 지표 시각화 대시보드, 예약·결제 현황 테이블 통합 지원 및 Excel 다운로드 기능 제공                  |<br><br>
 
 ## 💼 사용 기술 스택
 - Backend: Spring Boot 3.4.2  Maven  Java17  MyBatis
@@ -37,7 +36,7 @@
 
 ## 📆 ERD 구조  
 
-   사용자(user), 강사(trainer), 결제(payment), 예약(reservation), 관리자(admin) 등 테이블간 관계 설계
+    사용자(user), 강사(trainer), 결제(payment), 예약(reservation), 관리자(admin) 등 테이블간 관계 설계
 <br><br>
 
 ## 🧱 프로젝트 구조  
@@ -51,7 +50,7 @@ src/main/java
      ├─ securityConfig     // Spring Security 기반 인증/인가 설정 및 필터 체인 구성
      └─ application.java   // 메인 실행 클래스
 ```
-<br><br>
+<br>
 
 ## 🙌 기대 효과
 -	사용자: 강사검색 및 정보확인 → 간편한 예약 → 안전한 결제 흐름 확보
