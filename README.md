@@ -1,6 +1,6 @@
 <br>
 
-# ✨ Teachers Project  
+# ■ 티처스 Project  
 ### 퍼스널 트레이너와 사용자를 연결하는 예약/결제 플랫폼 
 (Spring Boot + MySQL 기반 웹 프로젝트)  
 <br><br>
