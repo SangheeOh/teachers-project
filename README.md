@@ -52,8 +52,8 @@ src/main/java
      ├─ securityConfig     // Spring Security 기반 인증/인가 설정 및 필터 체인 구성
      └─ application.java   // 메인 실행 클래스
 ```
-  ※ 이 프로젝트는 Google OAuth 로그인 기능이 포함되어 있어 보안을 위해 application.properties  KEY 내용은 Git에 포함되어 있지 않습니다.
-<br>
+  <sub>※ 이 프로젝트는 Google OAuth 로그인 기능이 포함되어 있어 보안을 위해 application.properties  KEY 내용은 Git에 포함되어 있지 않습니다.</sub>
+<br><br>
 
 ## 🙌 기대 효과
 -	사용자: 강사검색 및 정보확인 → 간편한 예약 → 안전한 결제 흐름 확보
