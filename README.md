@@ -38,7 +38,7 @@
 
 ## 🧩 ERD 구조  
 
-    사용자(user), 강사(trainer), 결제(payment), 예약(reservation), 관리자(admin) 등 핵심 테이블을 중심으로 다른 테이블간의 관계를 고려하여 설계
+    USER(사용자), TRAINER(강사), RESERVATION(예약), PAYMENT(결제), ADMIN(관리자) 등 핵심 테이블을 중심으로 다른 테이블과의 관계를 고려하여 ERD 설계
 <br>
 
 ## 🧱 프로젝트 구조  
