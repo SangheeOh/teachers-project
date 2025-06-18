@@ -31,7 +31,7 @@ public class TrainerController {
     ) {
     	
     	//로그 확인
-    	 System.out.println("[Controller] /search 요청 도착");
+    	//System.out.println("[Controller] /search 요청 도착");
     	 
     	 
     	 //System.out.println("city: " + city);
@@ -55,7 +55,7 @@ public class TrainerController {
         // 로그 출력(강사 리스트)
         //System.out.println("Trainer 리스트 확인:");
         for (Trainer t : trainerList) {
-            System.out.println("TrainerNo: " + t.getTrainerNo() + " / Speciality: " + t.getSpeciality());
+            //System.out.println("TrainerNo: " + t.getTrainerNo() + " / Speciality: " + t.getSpeciality());
         }
         
         model.addAttribute("trainers", trainerList);

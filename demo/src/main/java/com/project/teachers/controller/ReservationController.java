@@ -23,7 +23,7 @@ public class ReservationController {
                           @RequestParam("time") String time,
                           HttpSession session, Model model) {
     	
-    	System.out.println("예약 도착! trainerNo = " + trainerNo + ", day = " + day + ", time = " + time);
+    	//System.out.println("예약 도착! trainerNo = " + trainerNo + ", day = " + day + ", time = " + time);
 
         Integer userNo = (Integer) session.getAttribute("user_no");
         if (userNo == null) {
@@ -38,7 +38,7 @@ public class ReservationController {
 
         reservationService.insertReservation(reservation); //reservationNo 채워짐
         
-        System.out.println("reservationNo 저장완료: " + reservation.getReservationNo());
+        //System.out.println("reservationNo 저장완료: " + reservation.getReservationNo());
         
         model.addAttribute("reservationNo", reservation.getReservationNo());
 
