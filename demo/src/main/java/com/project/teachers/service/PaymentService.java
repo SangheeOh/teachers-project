@@ -76,7 +76,7 @@ public class PaymentService {
                     payment.setMethod((String) data.get("pay_method"));
                     payment.setPaymentType((String) data.get("pg_provider"));
 
-                    System.out.println("[Service] 결제 검증 성공: " + data);
+                    //System.out.println("[Service] 결제 검증 성공: " + data);
                     return payment;
                 }
             }

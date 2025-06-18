@@ -17,10 +17,10 @@ public class PaymentController {
     @PostMapping("/verify")
     public String verifyPayment(@ModelAttribute Payment request) {
 
-        System.out.println("[PaymentController] 요청 도착");
-        System.out.println("impUid: " + request.getImpUid());
-        System.out.println("merchantUid: " + request.getMerchantUid());
-        System.out.println("reservation_no: " + request.getReservationNo());
+        //System.out.println("[PaymentController] 요청 도착");
+        //System.out.println("impUid: " + request.getImpUid());
+        //System.out.println("merchantUid: " + request.getMerchantUid());
+        //System.out.println("reservation_no: " + request.getReservationNo());
 
         Payment result = paymentService.verifyAndSavePayment(
                 request.getImpUid(),
@@ -29,11 +29,11 @@ public class PaymentController {
         );
 
         if (result != null && "paid".equals(result.getStatus())) {
-            System.out.println("결제 성공! DB 저장 완료");
+            //System.out.println("결제 성공! DB 저장 완료");
            return "payment/success";
 
         } else {
-            System.out.println("결제 실패 또는 검증 실패");
+            //System.out.println("결제 실패 또는 검증 실패");
             return "payment/fail";
         }
     }
@@ -42,7 +42,7 @@ public class PaymentController {
     @GetMapping("/reserveno")
     public String startPayment(@RequestParam("reservationNo") int reservationNo, Model model) {
     	
-    	System.out.println("[paymentController] reservationNo=" + reservationNo);
+    	//System.out.println("[paymentController] reservationNo=" + reservationNo);
     	
         model.addAttribute("reservationNo", reservationNo);
         
