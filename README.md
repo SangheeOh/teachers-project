@@ -38,7 +38,7 @@
 
 ## 🧩 ERD 구조  
 
-    사용자(user), 강사(trainer), 결제(payment), 예약(reservation), 관리자(admin) 등 테이블간 관계 설계
+    사용자(user), 강사(trainer), 결제(payment), 예약(reservation), 관리자(admin) 등 핵심 테이블을 중심으로 다른 테이블간의 관계를 고려하여 설계
 <br>
 
 ## 🧱 프로젝트 구조  
@@ -52,6 +52,7 @@ src/main/java
      ├─ securityConfig     // Spring Security 기반 인증/인가 설정 및 필터 체인 구성
      └─ application.java   // 메인 실행 클래스
 ```
+  ※ 이 프로젝트는 Google OAuth 로그인 기능이 포함되어 있어 보안을 위해 application.properties  KEY 내용은 Git에 포함되어 있지 않습니다.
 <br>
 
 ## 🙌 기대 효과
